@@ -55,5 +55,31 @@ public class TicketController {
 
 		return "/ticket/details";
 	}
+    
+ // modifica ticket esistenti
+
+ 	@GetMapping("/edit/{id}")
+ 	public String modificaPizza(@PathVariable("id") Integer id, Model model) {
+ 		model.addAttribute("ticket", ticketrepository.getReferenceById(id));
+ 		
+ 		return "/ticket/edit";
+ 	}
+
+ 	@PostMapping("/edit/{id}")
+ 	public String update(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model) {
+
+// 		if () {
+//
+// 			bindingresult.addError(new ObjectError("Errore di prezzo", "Il prezzo della pizza è obbligatorio"));
+//
+// 		}
+
+// 		if (bindingresult.hasErrors()) {
+// 			return "/pizzeria/edit";
+// 		}
+ 		ticketrepository.save(ticket);
+
+ 		return "redirect:/ticket/dashboard";
+ 	}
 
 }

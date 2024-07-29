@@ -16,7 +16,7 @@
 				<h3 class="mb-4">Modifica il ticket</h3>
 				
 				<form id="formticket"
-						th:action="@{/ticket/edit}"
+						th:action="@{|/ticket/edit/${ticket.id}|}" 
 						method="post"
 						th:object="${ticket}">
 						
