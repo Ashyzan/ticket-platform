@@ -7,35 +7,41 @@
     <title>Dashboard Ticket</title> 
   </head>
   <body>
+	<!--		NAVBAR-->
+<header class="">
+	
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">Ticket System</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" th:href="@{/ticket/dashboard}">Dashboard</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" th:href="@{/ticket/create}">Crea Ticket</a>
+	      </li>
+	    </ul>
+	    <form class="form-inline my-2 my-lg-0">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="ricerca ticket per titolo">
+	      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Cerca</button>
+	    </form>
+	  </div>
+	</nav>  
+	
+	</header>
+	
+	<!--FINE NAVBAR-->
 <div>
 	
 	<div class="container px-4 text-center">
 	 <div class="row">
 	  <div class="col mt-4 mr-4 ml-4">
-<!--		NAVBAR-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="ricerca ticket per titolo">
-      <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Cerca</button>
-    </form>
-  </div>
-</nav>
-
-<!--FINE NAVBAR-->
 					
 		<h3 class="mb-4">Elenco Tickets</h3>	  
 		<div  th:if="${ticket.size() <= 0}">La lista dei ticket è vuota</div>
