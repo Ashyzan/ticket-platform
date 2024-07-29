@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,8 +34,6 @@ public class TicketController {
     @GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());
-//		model.addAttribute("checkIngrediente", new ArrayList<IngredientiModel>());
-//		model.addAttribute("ingredientiDB", ingredientirepository.findAll() );
 		return "/ticket/create";
 	}
     
@@ -46,6 +45,15 @@ public class TicketController {
 		ticketrepository.save(ticket);
 
 		return "redirect:/ticket/dashboard";
+	}
+    
+    @GetMapping("/detail/{id}")
+	public String dettaglioTicket(@PathVariable("id") Integer id, Model model) {
+		Ticket ticket = ticketrepository.getReferenceById(id);
+		model.addAttribute("ticket", ticket);
+		
+
+		return "/ticket/details";
 	}
 
 }

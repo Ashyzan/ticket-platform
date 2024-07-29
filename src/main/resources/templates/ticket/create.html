@@ -15,7 +15,7 @@
 				
 				<h3 class="mb-4">Inserisci una nuovo ticket</h3>
 				
-				<form id="formpizza"
+				<form id="formticket"
 						th:action="@{/ticket/create}"
 						method="post"
 						th:object="${ticket}">
@@ -25,7 +25,6 @@
 						  <input type="text" class="form-control" id="nome" placeholder="Titolo Ticket" 
 						  		 th:field="*{titoloTicket}">
 						</div>
-						
 						<div class="mb-3">
 						<label for="input" class="form-group">Descrizione ticket</label>
 						    <textarea class="form-control" id="descrizione-textarea" rows="5" th:field="*{descrizioneTicket}"></textarea>
