@@ -35,8 +35,7 @@ public class Ticket {
 	@Column(name = "dataTicket", nullable = false)
 //	private LocalDate dataTicket;
 	private LocalDate dataTicket = LocalDate.now();
-
-
+	
 	// GETTER SETTER
 
 	public Integer getId() {
@@ -70,6 +69,8 @@ public class Ticket {
 	public void setDataTicket(LocalDate dataTicket) {
 	    this.dataTicket = dataTicket;
 	}
+	
+
 	
 	
 	

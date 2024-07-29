@@ -31,6 +31,24 @@ public class TicketController {
 		return "/ticket/index";
 	}
     
+ // filtra tickets
+//    @PostMapping("dashboard/filtra")
+//    public List<Ticket> filtraTicket(Model model, String titoloDaFiltrare ) {
+//	model.addAttribute("titoloDaFiltrare", titoloDaFiltrare);
+//
+//	List<Ticket> ticketListaNew = new ArrayList<Ticket>();
+//	List<Ticket> ticketPresenti = ticketrepository.findAll();
+//	
+//	for( int i=0; i< ticketPresenti.size(); i++) {
+//		if(ticketrepository.findBytitoloTicketIgnoreCaseLike(titoloDaFiltrare) != null) {
+//		   
+//		    System.out.println(titoloDaFiltrare);
+//		}
+//	}
+//	
+//	return ticketListaNew;
+//    }
+//    
     @GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());

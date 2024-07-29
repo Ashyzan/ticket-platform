@@ -33,9 +33,13 @@
 	
 	      </ul>
 	      <form class="d-flex" role="search">
-	        <input class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
+	        <input th:action="@{/ticket/dashboard/filtra}" 
+			method="post"
+			th:text="${titoloDaFiltrare}"
+			class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
 	        <button class="btn btn-outline-info" type="submit">Cerca...</button>
 	      </form>
+
 	    </div>
 	  </div>
 	</nav>
@@ -50,6 +54,7 @@
 		<h3 class="mb-4">Elenco Tickets</h3>	  
 		<div  th:if="${ticket.size() <= 0}">La lista dei ticket è vuota</div>
 		<!--	TABLELLA OFFERTE COLLEGATE ALLA PIZZA-->
+
 		<table class="table table-bordered" >
 		  <thead>
 		    <tr>
@@ -61,15 +66,16 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr th:style="|margin:0 auto;vertical-align:middle;font-size:13px;|" th:each="item : ${ticket}">
+		    <tr th:style="|margin:0 auto;vertical-align:middle;font-size:13px;|" 
+			th:each="item : ${ticket}">
 		      <td th:text="${item.titoloTicket}"></td>
 			 <td th:text="${#temporals.format(item.dataTicket, 'dd/MM/yyyy')}"></td>
 			<td th:text="Pippo"></td>
 			<td th:text="Pippo"></td>
 			 <td>
-				<a th:style="|display:inline;float:left;|" th:href="@{|/ticket/detail/${item.id}|}" class="btn text-dark"><i class="bi bi-list-ol"></i></a>
-				<a th:style="|display:inline;float:left;|" th:href="@{|/ticket/edit/${item.id}|}" class="btn text-dark"><i class="bi bi-pencil-square"></i></a>
-				<a th:style="|display:inline;float:left;|" th:href="@{|/notes/add/${item.id}|}" class="btn text-dark"><i class="bi bi-plus-circle"></i></a>
+				<a th:style="|display:inline;|" th:href="@{|/ticket/detail/${item.id}|}" class="btn text-dark"><i class="bi bi-list-ol"></i></a>
+				<a th:style="|display:inline;|" th:href="@{|/ticket/edit/${item.id}|}" class="btn text-dark"><i class="bi bi-pencil-square"></i></a>
+				<a th:style="|display:inline;|" th:href="@{|/notes/add/${item.id}|}" class="btn text-dark"><i class="bi bi-plus-circle"></i></a>
 				
 
 <!--				<a sec:authorize="hasAuthority('ADMIN')" th:style="|display:inline;float:left;|" th:href="@{|/offerte/edit/${item.id}|}"><i class="btn bi bi-pencil-square"></i></a>-->
