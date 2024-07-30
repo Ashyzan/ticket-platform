@@ -40,7 +40,7 @@
 <!--	        <button class="btn btn-outline-info" type="submit">Cerca...</button>-->
 <!--	      </form>-->
 
-		<form class="d-flex" method="get" th:action="@{/ticket/search}">
+		<form class="d-flex" method="get" th:action="@{/search}">
 		  <input 
 		  name="keyword"
 		  size="30" 
@@ -59,10 +59,14 @@
 
 					
 		<h3 class="mb-4">Elenco Tickets</h3>	  
-		<div  th:if="${ticket.size() <= 0}">La lista dei ticket è vuota</div>
+		<div  th:if="${ticket.size() <= 0}">
+			<p>La lista dei ticket è vuota</p>
+		<iframe src="https://giphy.com/embed/RfFEdbY4JWDLYBeLp2" width="240" height="240" 
+		frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+	</div>
 
 
-		<table class="table table-bordered" >
+		<table class="table table-bordered" th:unless="${ticket.isEmpty()}">
 		  <thead>
 		    <tr>
 		      <th scope="col">Titolo Ticket</th>
@@ -77,6 +81,7 @@
 			th:each="item : ${ticket}">
 		      <td th:text="${item.titoloTicket}"></td>
 			 <td th:text="${#temporals.format(item.dataTicket, 'dd/MM/yyyy')}"></td>
+<!--			<td th:text="${item.categoria.categoria}"></td>-->
 			<td th:text="Pippo"></td>
 			<td th:text="Pippo"></td>
 			 <td>

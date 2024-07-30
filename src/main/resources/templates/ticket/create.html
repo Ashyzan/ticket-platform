@@ -35,23 +35,13 @@
 					      <th:field="*{dataTicket}">
 						</div>
 <!--						SELEZIONA LA CATEGORIA-->
-						<select class="form-select mt-3 mb-3" aria-label="categoria-tickets">
-						  <option selected>Seleziona la categoria</option>
-						  <option value="1">One</option>
-						  <option value="2">Two</option>
-						  <option value="3">Three</option>
+						<select class="form-select mb-3" th:field="*{categoria.id}">
+						    <option th:each="item : ${DB_categorie}" 
+							th:value="${item.id}" th:text="${item.categoria}">
+						</option>
 						</select>
-						 <!--bottone associa ingrediente -->
-<!--						 <h5 th:text="|Associa ingredienti|"> </h5>-->
-<!--						 			<div class="mt-6">-->
-<!--										<th:block th:each="associaIngrediente : ${ingredientiDB}" >-->
-<!--											<input type="checkbox" name="ingrediente" -->
-<!--											th:value="${associaIngrediente.id}" -->
-<!--											th:field="*{listaIngredienti}"/>-->
-<!--											<label th:text="|${associaIngrediente.nomeIngrediente} ${associaIngrediente.id}|"></label>-->
-<!--										</th:block>-->
-<!--						 		    </div>-->
-						 
+						
+<!--						// ERRORI //-->
 						 <div th:if="${#fields.hasAnyErrors()}">
 							<ul>
 								<li th:each="err : ${#fields.allErrors()}" 

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,6 +42,8 @@ public class Ticket {
 	private LocalDate dataTicket = LocalDate.now();
 	
 	@ManyToOne
+	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 	

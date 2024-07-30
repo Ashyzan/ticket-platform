@@ -2,6 +2,9 @@ package it.ashyzan.ticket_platform.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +28,8 @@ public class Categoria {
 	private String categoria;
 	
 	@OneToMany(mappedBy = "categoria")
+	@JsonIgnore
+	@JsonManagedReference
 	private List<Ticket> tickets;
 	
 	// GETTER SETTER

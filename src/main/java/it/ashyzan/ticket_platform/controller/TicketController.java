@@ -1,7 +1,5 @@
 package it.ashyzan.ticket_platform.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.ashyzan.ticket_platform.model.Ticket;
+import it.ashyzan.ticket_platform.repository.CategoriaRepo;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
 import jakarta.validation.Valid;
 
@@ -24,53 +23,22 @@ public class TicketController {
     @Autowired
     private TicketRepository ticketrepository;
     
+    @Autowired
+    private CategoriaRepo categoriarepository;
+    
     @GetMapping("dashboard")
 	public String index(Model model) {
-		List<Ticket> ticket = ticketrepository.findAll();
-		model.addAttribute("ticket", ticket);
+		
+		model.addAttribute("ticket", ticketrepository.findAll());
 
 		return "/ticket/index";
 	}
     
- // FILTRO DEI TICKET PER TITOLO //
-//    @GetMapping("/dashboard/filtra")
-//    public String filtraTicket(@ModelAttribute ("ticket")Ticket ticket, 
-//	    BindingResult bindingresult, Model model ) {
-//	
-//	if (ticket.getTitoloTicket() != null) {
-//	
-//	    List <Ticket> ticketFiltrati = 
-//		    ticketrepository.findBytitoloTicketIgnoreCaseLike(ticket.getTitoloTicket());
-//	    if(ticketFiltrati != null) {
-//		model.addAttribute("ticketTrovati", ticketFiltrati);
-//		return "/ticket/ticketfiltrati"; 
-//	}
-//	
-//				}
-//	return "/ticket/error";
-//    }
-   
-// metodo di ricerca tramite keyword
-    public List<Ticket> getByKeyword(String keyword) {
-        return ticketrepository.findByKeyword(keyword);
-    }
-
-    @GetMapping({"/search"})
-    public String home(Ticket ticket, Model model, String keyword) {
-        if (keyword != null) {
-            List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
-            model.addAttribute("ticketTrovati", ticketFiltrati);
-       
-            return "/ticket/ticketfiltrati";
-        } 
-            
-        return "/ticket/error";
-    }
-    
-    // CREA TICKET //
+///////////////////////////// CREA TICKET //
     @GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());
+		model.addAttribute("DB_categorie", categoriarepository.findAll());
 		return "/ticket/create";
 	}
     
@@ -95,7 +63,7 @@ public class TicketController {
 		return "/ticket/details";
 	}
     
- // modifica ticket esistenti
+///////////////////////////// MODIFICA TICKET ESISTENTI
 
  	@GetMapping("/edit/{id}")
  	public String modificaPizza(@PathVariable("id") Integer id, Model model) {
