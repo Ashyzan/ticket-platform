@@ -50,9 +50,16 @@
 
 					
 		<h3 class="mb-4">Risultati ricerca ...</h3>	  
-		<div  th:if="${ticketTrovati.size() <= 0}">La ricerca non ha  prodotto nessun risultato</div>
+		<div  th:if="${ticketTrovati.size() <= 0}">
+			<p>La ricerca non ha prodotto nessun risultato"</p>
+			
+			
+			<iframe src="https://giphy.com/embed/PZ2fkfuoLJwzFEt4Dt" width="240" 
+			height="240" frameBorder="0" class="giphy-embed" allowFullScreen>
+			</iframe>
+			
 		<!--		  FILTRO-->
-		<table class="table table-bordered" >
+		<table class="table table-bordered" th:unless="${ticketTrovati.isEmpty()}">
 		  <thead>
 		    <tr>
 		      <th scope="col">Titolo Ticket</th>
@@ -73,14 +80,13 @@
 				<a th:style="|display:inline;|" th:href="@{|/ticket/detail/${item.id}|}" class="btn text-dark"><i class="bi bi-list-ol"></i></a>
 				<a th:style="|display:inline;|" th:href="@{|/ticket/edit/${item.id}|}" class="btn text-dark"><i class="bi bi-pencil-square"></i></a>
 				<a th:style="|display:inline;|" th:href="@{|/notes/add/${item.id}|}" class="btn text-dark"><i class="bi bi-plus-circle"></i></a>
-				
-
-							</form>	
 			  		
 				</td>
 		    </tr>
 		  </tbody>
 		</table>
+<!--		chiusura tag if-->
+	</div> 
    </div>
   </div>
  </div>
