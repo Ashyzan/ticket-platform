@@ -32,23 +32,25 @@ public class TicketController {
 		return "/ticket/index";
 	}
     
- // filtra tickets
-    @PostMapping("/dashboard/filtra")
-    public String filtraTicket(@ModelAttribute ("ticket")Ticket ticket, 
-	    BindingResult bindingresult, Model model ) {
-	
-	if (ticket.getTitoloTicket() != null) {
-	    Ticket ticketFiltrati = 
-	ticketrepository.findBytitoloTicketIgnoreCase(ticket.getTitoloTicket());
-		if(ticketFiltrati != null) {
-		    model.addAttribute("ticketTrovati", ticketFiltrati);
-			return "redirect:/ticket/ticketfiltrati/"; 
-		}
-	}
-	return "/ticket/error";
-    }
+ // FILTRO DEI TICKET PER TITOLO //
+//    @GetMapping("/dashboard/filtra")
+//    public String filtraTicket(@ModelAttribute ("ticket")Ticket ticket, 
+//	    BindingResult bindingresult, Model model ) {
+//	
+//	if (ticket.getTitoloTicket() != null) {
+//	
+//	    List <Ticket> ticketFiltrati = 
+//		    ticketrepository.findBytitoloTicketIgnoreCaseLike(ticket.getTitoloTicket());
+//	    if(ticketFiltrati != null) {
+//		model.addAttribute("ticketTrovati", ticketFiltrati);
+//		return "/ticket/ticketfiltrati"; 
+//	}
+//	
+//				}
+//	return "/ticket/error";
+//    }
    
-
+// metodo di ricerca tramite keyword
     public List<Ticket> getByKeyword(String keyword) {
         return ticketrepository.findByKeyword(keyword);
     }
