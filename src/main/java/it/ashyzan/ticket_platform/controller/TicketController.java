@@ -58,11 +58,9 @@ public class TicketController {
         if (keyword != null) {
             List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
             model.addAttribute("ticketTrovati", ticketFiltrati);
-            
+       
             return "/ticket/ticketfiltrati";
         } 
-        
-        else 
             
         return "/ticket/error";
     }

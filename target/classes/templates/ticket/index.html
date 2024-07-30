@@ -44,18 +44,12 @@
 		<form class="d-flex" method="get" th:action="@{/ticket/search}">
 		  <input 
 		  name="keyword"
-		  size="50" 
+		  size="30" 
 		  th:value="${keyword}"
 		  type="text"
 		  class="form-control me-2" placeholder="Cerca" aria-label="Search">
 		  <button class="btn btn-outline-info" type="submit">Cerca...</button>
 		</form>
-<!--		  FILTRO-->
-<div th:if="${ticketTrovati} != null"
-     th:each="item : ${ticketTrovati}">
-		      <td th:text="${item.titoloTicket}"></td></div>
-	    </div>
-	  </div>
 	</nav>
 	<!--FINE NAVBAR-->
 <div>
@@ -67,7 +61,7 @@
 					
 		<h3 class="mb-4">Elenco Tickets</h3>	  
 		<div  th:if="${ticket.size() <= 0}">La lista dei ticket è vuota</div>
-		<!--	TABLELLA OFFERTE COLLEGATE ALLA PIZZA-->
+
 
 		<table class="table table-bordered" >
 		  <thead>
