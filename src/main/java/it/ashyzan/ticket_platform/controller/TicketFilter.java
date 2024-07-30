@@ -19,7 +19,7 @@ public class TicketFilter {
     private TicketRepository ticketrepository;
     
     // FILTRO DEI TICKET PER TITOLO //
-//  @GetMapping("/dashboard/filtra")
+//  @GetMapping("/search")
 //  public String filtraTicket(@ModelAttribute ("ticket")Ticket ticket, 
 //	    BindingResult bindingresult, Model model ) {
 //	

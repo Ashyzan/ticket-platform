@@ -22,5 +22,6 @@ public interface TicketRepository extends JpaRepository <Ticket, Integer>{
             nativeQuery = true)
     List<Ticket> findByKeyword(@Param("keyword") String keyword);
 
+
 }
 

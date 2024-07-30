@@ -1,5 +1,7 @@
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/TicketPlatformApplication.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/TicketController.java
+/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/TicketFilter.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/model/Categoria.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/model/Ticket.java
+/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/repository/CategoriaRepo.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/repository/TicketRepository.java
