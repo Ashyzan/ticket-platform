@@ -32,14 +32,28 @@
 	        </li>
 	
 	      </ul>
-	      <form class="d-flex" role="search">
-	        <input th:action="@{/ticket/dashboard/filtra}" 
-			method="post"
-			th:text="${titoloDaFiltrare}"
-			class="form-control me-2" type="search" placeholder="Cerca" aria-label="Search">
-	        <button class="btn btn-outline-info" type="submit">Cerca...</button>
-	      </form>
+<!--	      <form class="d-flex" role="search">-->
+<!--	        <input th:action="@{/ticket/dashboard/filtra}" -->
+<!--			method="post"-->
+<!--			th:object="${ticket}"-->
+<!--			type="text"-->
+<!--			class="form-control me-2" placeholder="Cerca" aria-label="Search">-->
+<!--	        <button class="btn btn-outline-info" type="submit">Cerca...</button>-->
+<!--	      </form>-->
 
+		<form class="d-flex" method="get" th:action="@{/ticket/search}">
+		  <input 
+		  name="keyword"
+		  size="50" 
+		  th:value="${keyword}"
+		  type="text"
+		  class="form-control me-2" placeholder="Cerca" aria-label="Search">
+		  <button class="btn btn-outline-info" type="submit">Cerca...</button>
+		</form>
+<!--		  FILTRO-->
+<div th:if="${ticketTrovati} != null"
+     th:each="item : ${ticketTrovati}">
+		      <td th:text="${item.titoloTicket}"></td></div>
 	    </div>
 	  </div>
 	</nav>

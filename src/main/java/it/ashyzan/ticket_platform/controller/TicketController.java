@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,23 +33,41 @@ public class TicketController {
 	}
     
  // filtra tickets
-//    @PostMapping("dashboard/filtra")
-//    public List<Ticket> filtraTicket(Model model, String titoloDaFiltrare ) {
-//	model.addAttribute("titoloDaFiltrare", titoloDaFiltrare);
-//
-//	List<Ticket> ticketListaNew = new ArrayList<Ticket>();
-//	List<Ticket> ticketPresenti = ticketrepository.findAll();
-//	
-//	for( int i=0; i< ticketPresenti.size(); i++) {
-//		if(ticketrepository.findBytitoloTicketIgnoreCaseLike(titoloDaFiltrare) != null) {
-//		   
-//		    System.out.println(titoloDaFiltrare);
-//		}
-//	}
-//	
-//	return ticketListaNew;
-//    }
-//    
+    @PostMapping("/dashboard/filtra")
+    public String filtraTicket(@ModelAttribute ("ticket")Ticket ticket, 
+	    BindingResult bindingresult, Model model ) {
+	
+	if (ticket.getTitoloTicket() != null) {
+	    Ticket ticketFiltrati = 
+	ticketrepository.findBytitoloTicketIgnoreCase(ticket.getTitoloTicket());
+		if(ticketFiltrati != null) {
+		    model.addAttribute("ticketTrovati", ticketFiltrati);
+			return "redirect:/ticket/ticketfiltrati/"; 
+		}
+	}
+	return "/ticket/error";
+    }
+   
+
+    public List<Ticket> getByKeyword(String keyword) {
+        return ticketrepository.findByKeyword(keyword);
+    }
+
+    @GetMapping({"/search"})
+    public String home(Ticket ticket, Model model, String keyword) {
+        if (keyword != null) {
+            List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
+            model.addAttribute("ticketTrovati", ticketFiltrati);
+            
+            return "/ticket/ticketfiltrati";
+        } 
+        
+        else 
+            
+        return "/ticket/error";
+    }
+    
+    // CREA TICKET //
     @GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());
@@ -56,12 +75,14 @@ public class TicketController {
 	}
     
     @PostMapping("/create")
-	public String saveticket(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model)
+	public String saveticket(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model) {
 
-	{
-
+	if (bindingresult.hasErrors()) {
+		   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+			return "/create";
+		}
+	
 		ticketrepository.save(ticket);
-
 		return "redirect:/ticket/dashboard";
 	}
     
@@ -86,15 +107,10 @@ public class TicketController {
  	@PostMapping("/edit/{id}")
  	public String update(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model) {
 
-// 		if () {
-//
-// 			bindingresult.addError(new ObjectError("Errore di prezzo", "Il prezzo della pizza è obbligatorio"));
-//
-// 		}
-
-// 		if (bindingresult.hasErrors()) {
-// 			return "/pizzeria/edit";
-// 		}
+ 		if (bindingresult.hasErrors()) {
+ 		   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+ 			return "/edit/{id}";
+ 		}
  		ticketrepository.save(ticket);
 
  		return "redirect:/ticket/dashboard";

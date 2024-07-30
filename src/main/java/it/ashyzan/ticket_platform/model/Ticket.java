@@ -36,6 +36,7 @@ public class Ticket {
 //	private LocalDate dataTicket;
 	private LocalDate dataTicket = LocalDate.now();
 	
+	
 	// GETTER SETTER
 
 	public Integer getId() {
@@ -70,7 +71,7 @@ public class Ticket {
 	    this.dataTicket = dataTicket;
 	}
 	
-
+	
 	
 	
 	
