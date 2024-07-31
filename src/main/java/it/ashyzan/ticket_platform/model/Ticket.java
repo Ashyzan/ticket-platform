@@ -10,8 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -39,13 +37,13 @@ public class Ticket {
 	@Column(name = "dataTicket", nullable = false)
 	private LocalDate dataTicket = LocalDate.now();
 	
-	@ManyToOne
-	@JoinColumn(name = "categoria_id", nullable = false)
-	private Categoria categoria;
-	
-	@ManyToOne
-	@JoinColumn(name = "stato_id", nullable = false)
-	private Stato stato;
+//	@ManyToOne
+//	@JoinColumn(name = "categoria_id", nullable = false)
+//	private Categoria categoria;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "stato_id", nullable = false)
+//	private Stato stato;
 	
 	@OneToMany(mappedBy = "ticketNota")
 	private List<Notes> note;
@@ -60,21 +58,21 @@ public class Ticket {
 	    this.note = note;
 	}
 
-	public Stato getStato() {
-	    return stato;
-	}
-
-	public void setStato(Stato stato) {
-	    this.stato = stato;
-	}
-
-	public Categoria getCategoria() {
-	    return categoria;
-	}
-	
-	public void setCategoria(Categoria categoria) {
-	    this.categoria = categoria;
-	}
+//	public Stato getStato() {
+//	    return stato;
+//	}
+//
+//	public void setStato(Stato stato) {
+//	    this.stato = stato;
+//	}
+//
+//	public Categoria getCategoria() {
+//	    return categoria;
+//	}
+//	
+//	public void setCategoria(Categoria categoria) {
+//	    this.categoria = categoria;
+//	}
 	
 
 	public Integer getId() {
