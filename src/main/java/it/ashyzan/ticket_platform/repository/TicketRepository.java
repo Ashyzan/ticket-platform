@@ -10,17 +10,21 @@ import it.ashyzan.ticket_platform.model.Ticket;
 
 public interface TicketRepository extends JpaRepository <Ticket, Integer>{
 //    // corrispondenza esatta
-//    public Ticket findBytitoloTicketIgnoreCase(String titoloTicket);
+    public List<Ticket> findBytitoloTicketIgnoreCase(String titoloTicket);
 //    
 //    //corrispondenza simile
-//    public List<Ticket> findBytitoloTicketIgnoreCaseLike(String titoloTicket);
+    public List<Ticket> findBytitoloTicketIgnoreCaseLike(String titoloTicket);
 //    // corrispondenza contiene
-//    public  List<Ticket> findBytitoloTicketIgnoreCaseContaining(String titoloTicket);
+    public  List<Ticket> findBytitoloTicketIgnoreCaseContaining(String titoloTicket);
 
   //Custom query
-    @Query(value = "SELECT * FROM tickets t WHERE t.titolo_ticket LIKE %:keyword%",
+    @Query(value = "SELECT * FROM tickets t WHERE t.titolo_ticket LIKE %:titoloTicket%",
             nativeQuery = true)
-    List<Ticket> findByKeyword(@Param("keyword") String keyword);
+    List<Ticket> findByKeyword(@Param("titoloTicket") String titoloTicket);
+
+//    SELECT *
+//    FROM tickets t 
+//    WHERE t.titolo_ticket LIKE '%keyword%';
 
 
 }

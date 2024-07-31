@@ -53,7 +53,8 @@ public class TicketController {
 	}
     
     @PostMapping("/create")
-	public String saveticket(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model) {
+	public String saveticket(@Valid @ModelAttribute("ticket") 
+	Ticket ticket, BindingResult bindingresult, Model model) {
 
 	if (bindingresult.hasErrors()) {
 		   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
@@ -64,33 +65,44 @@ public class TicketController {
 		return "redirect:/ticket/dashboard";
 	}
     
+    // DETTAGLIO TICKET E NOTE AGGIUNGI NOTA
     @GetMapping("/detail/{id}")
 	public String dettaglioTicket(@PathVariable("id") Integer id, Model model) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
+		Notes nuovaNota = new Notes();
+
+		// associo il ticket alla/e nuova nota
+		nuovaNota.setTicketNota(ticket);
+
 		model.addAttribute("ticket", ticket);
 		model.addAttribute("note", noterepository.findAll());
-		model.addAttribute("nuovaNota", new Notes());
+		
+		
+		model.addAttribute("nuovaNota", nuovaNota);
+		
 		
 //		if (bindingresult.hasErrors()) {
-//			   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+//			   bindingresult.addError(new ObjectError
+//		("Errore di inserimento", "Il campo è obbligatorio"));
 //				return "/detail/{id}";
 //			}
 		
-//			ticketrepository.save(ticket);
 			return "/ticket/details";
 	}
     
-    @PostMapping("/notes/create")
-    public String salvaNote() {
-	
+    @PostMapping("/notes/create/")
+    public String salvaNote(@Valid @ModelAttribute("nuovaNota") Notes note, 
+	    BindingResult bindingresult, Model model) {
+
 //	if (bindingresult.hasErrors()) {
 //	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
 //		return "/detail/{id}";
 //	}
 
-//	ticketrepository.save(ticket);
-	
-	return "/ticket/details";
+	noterepository.save(note);
+	return "redirect:/ticket/detail/" + note.getTicketNota().getId();
+
+//	return "redirect:/ticket/dashboard";
     }
     
 ///////////////////////////// MODIFICA TICKET ESISTENTI

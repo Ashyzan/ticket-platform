@@ -47,7 +47,7 @@ public class Ticket {
 	@JoinColumn(name = "stato_id", nullable = false)
 	private Stato stato;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(mappedBy = "ticketNota")
 	private List<Notes> note;
 	
 	// GETTER SETTER

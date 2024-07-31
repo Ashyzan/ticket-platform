@@ -33,9 +33,9 @@
   <div class="row gx-5">
     <div class="col mt-4">
 		
-		  <div  th:unless="${note.size() <= 0}">
+		  <div  th:unless="${ticket.note.size() <= 0}">
 				<h3>Note</h3>				
-					  <div th:each="item: ${note}" class="card" style="width: 100%; display:inline-block;">
+					  <div th:each="item: ${ticket.note}" class="card mt-2 mb-2" style="width: 100%; display:inline-block;">
 					    <div class="card-body">
 						  <p><b>Autore: </b><span th:text="AUTORE"></span></p>
 						  <p><b>Data: </b><span th:text="${#temporals.format(item.dataNota, 'dd/MM/yyyy')}"></span></p>
@@ -58,18 +58,22 @@
 				<h3 class="mb-4">Inserisci una nuova nota</h3>
 				
 				<form id="formnote"
-						th:action="@{/notes/create}"
+						th:action="@{/ticket/notes/create/}"
 						method="post"
 						th:object="${nuovaNota}">
+						
 
+<!--						<div class="mb-3">	-->
+<!--						  <th:field="*{ticketNota} ">-->
+
+<!--						</div>-->
+						
 						<div class="mb-3">
+							<input type="hidden" th:field="*{ticketNota}" id="ticket">
 						<label for="input" class="form-group">Descrizione nota</label>
 					 <textarea class="form-control" th:field="*{descrizioneNota}"></textarea>
 						</div>
 
-						<div class="mb-3">	
-						  <th:field="*{ticket.id}">
-						</div>
 						<div class="mb-3">	
 					      <th:field="*{dataNota}">
 						</div>
@@ -78,14 +82,14 @@
 <!--						</div>-->
 
 <!--						// ERRORI //-->
-						 <div th:if="${#fields.hasAnyErrors()}">
-							<ul>
-								<li th:each="err : ${#fields.allErrors()}" 
-									th:text="${err}">
-									Errore
-								</li>
-							</ul>
-						 </div>
+<!--						 <div th:if="${#fields.hasAnyErrors()}">-->
+<!--							<ul>-->
+<!--								<li th:each="err : ${#fields.allErrors()}" -->
+<!--									th:text="${err}">-->
+<!--									Errore-->
+<!--								</li>-->
+<!--							</ul>-->
+<!--						 </div>-->
 						 
 						 <div class="col-auto">
 						   <button type="submit" class="btn btn-primary mb-3">Salva</button>

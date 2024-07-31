@@ -32,10 +32,18 @@ public class Notes {
 	private LocalDate dataNota = LocalDate.now();
 	
 	@ManyToOne
-	@JoinColumn(name = "ticket_id", nullable = false)
-	private Ticket ticket;
+	@JoinColumn(name = "ticketNota", nullable = false)
+	private Ticket ticketNota;
 	
 	// GETTER SETTER
+
+	public Ticket getTicketNota() {
+	    return ticketNota;
+	}
+
+	public void setTicketNota(Ticket ticketNota) {
+	    this.ticketNota = ticketNota;
+	}
 
 	public Integer getId() {
 	    return id;
@@ -62,12 +70,5 @@ public class Notes {
 	    this.dataNota = dataNota;
 	}
 
-	public Ticket getTicket() {
-	    return ticket;
-	}
-
-	public void setTicket(Ticket ticket) {
-	    this.ticket = ticket;
-	}
 
 }
