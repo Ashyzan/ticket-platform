@@ -7,14 +7,56 @@
     <title>Dettaglio Ticket</title> 
   </head>
   <body>
+		<!--		NAVBAR-->
+		<!-- MENU in header -->
+		<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+		  <div class="container-fluid">
+	<!--	    <img src="./img/duck.png" class="logo">-->
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+		      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item text-secondary">
+		          <a class="nav-link active text-light" aria-current="page" href="#">Tycket System</a>
+		        </li>
+		        <li class="nav-item">
+					<a class="nav-link" th:href="@{/ticket/dashboard}">Dashboard</a>
+		        </li>
+		        <li class="nav-item">
+					<a class="nav-link" th:href="@{/ticket/create}">Crea Ticket</a>
+		        </li>
+		        <li class="nav-item">
+					<a class="nav-link" th:href="@{/ticket/create}">Area personale</a>
+		        </li>
+		
+		      </ul>
+	<!--	      <form class="d-flex" role="search" th:action="@{/ticket/dashboard/filtra}" method="get">-->
+	<!--	        <input  -->
+	<!--			th:object="${ticket}"-->
+	<!--			type="text"-->
+	<!--			class="form-control me-2" placeholder="Cerca" aria-label="Search">-->
+	<!--	        <button class="btn btn-outline-info" type="submit">Cerca...</button>-->
+	<!--	      </form>-->
 	
+			<form class="d-flex" method="get" th:action="@{/search}">
+			  <input 
+			  name="keyword"
+			  size="30" 
+			  th:value="${keyword}"
+			  type="text"
+			  class="form-control me-2" placeholder="Cerca">
+			  <button class="btn btn-outline-info" type="submit">Cerca...</button>
+			</form>
+		</nav>
+		<!--FINE NAVBAR-->	
 	<!--INSERISCI UNA NUOVA NOTA			  		-->
 			<div class="container px-4">
 			  <div class="row gx-5">
 			    <div class="col mt-4">
 			     
-					
-					<h3 class="mb-4" id="add">Inserisci una nuova nota</h3>
+					<h3 class="mb-4">Inserisci una nuova nota per il ticket "<span th:text="${ticket.titoloTicket}"></span>"</h3>
 					
 					<form id="formnote"
 							th:action="@{/notes/quickadd}"
