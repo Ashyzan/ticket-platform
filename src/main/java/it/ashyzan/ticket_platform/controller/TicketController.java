@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.ashyzan.ticket_platform.model.Ticket;
 import it.ashyzan.ticket_platform.repository.CategoriaRepo;
+import it.ashyzan.ticket_platform.repository.StatoRepo;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
 import jakarta.validation.Valid;
 
@@ -25,6 +26,9 @@ public class TicketController {
     
     @Autowired
     private CategoriaRepo categoriarepository;
+    
+    @Autowired
+    private StatoRepo statorepository;
     
     @GetMapping("dashboard")
 	public String index(Model model) {
@@ -39,6 +43,7 @@ public class TicketController {
 	public String create(Model model) {
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("DB_categorie", categoriarepository.findAll());
+		model.addAttribute("DB_stato", statorepository.findAll());
 		return "/ticket/create";
 	}
     
@@ -67,8 +72,10 @@ public class TicketController {
 
  	@GetMapping("/edit/{id}")
  	public String modificaPizza(@PathVariable("id") Integer id, Model model) {
- 		model.addAttribute("ticket", ticketrepository.getReferenceById(id));
- 		
+ 		model.addAttribute("ticket", ticketrepository.findById(id).get());
+ 		model.addAttribute("DB_categorie", categoriarepository.findAll());
+		model.addAttribute("DB_stato", statorepository.findAll());
+ 		model.addAttribute("editMode", true);
  		return "/ticket/edit";
  	}
 

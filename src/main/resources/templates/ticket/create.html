@@ -41,6 +41,12 @@
 						</option>
 						</select>
 						
+<!--						SELEZIONA LO STATO-->
+						<select class="form-select mb-3" th:field="*{stato.id}">
+						 <option th:each="item : ${DB_stato}" 
+						th:value="${item.id}" th:text="${item.stato}">
+						</option>
+						</select>
 <!--						// ERRORI //-->
 						 <div th:if="${#fields.hasAnyErrors()}">
 							<ul>

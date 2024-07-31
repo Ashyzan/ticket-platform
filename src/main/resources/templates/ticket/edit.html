@@ -16,7 +16,7 @@
 				<h3 class="mb-4">Modifica il ticket</h3>
 				
 				<form id="formticket"
-						th:action="@{|/ticket/edit/${ticket.id}|}" 
+						th:action="${editMode} ? @{|/ticket/edit/${ticket.id}|} : @{/ticket/create/}"
 						method="post"
 						th:object="${ticket}">
 						
@@ -29,23 +29,29 @@
 						<div class="mb-3">
 						<label for="input" class="form-group">Descrizione ticket</label>
 						    <textarea class="form-control" id="descrizione-textarea" rows="5" th:field="*{descrizioneTicket}"></textarea>
-						   
 						</div>
 
 						<div class="mb-3">	
 					      <th:field="*{dataTicket}">
 						</div>
-						 
-						 <!--bottone associa ingrediente -->
-<!--						 <h5 th:text="|Associa ingredienti|"> </h5>-->
-<!--						 			<div class="mt-6">-->
-<!--										<th:block th:each="associaIngrediente : ${ingredientiDB}" >-->
-<!--											<input type="checkbox" name="ingrediente" -->
-<!--											th:value="${associaIngrediente.id}" -->
-<!--											th:field="*{listaIngredienti}"/>-->
-<!--											<label th:text="|${associaIngrediente.nomeIngrediente} ${associaIngrediente.id}|"></label>-->
-<!--										</th:block>-->
-<!--						 		    </div>-->
+						
+						<!--	SELEZIONA LA CATEGORIA-->
+						<select class="form-select mb-3" th:field="*{categoria.id}">
+						 <option th:each="item : ${DB_categorie}" 
+						th:value="${item.id}" 
+						th:text="${item.categoria}"
+						>
+						</option>
+						</select>
+												
+						<!--   SELEZIONA LO STATO-->
+						<select class="form-select mb-3" th:field="*{stato.id}">
+						<option th:each="item : ${DB_stato}" 
+						th:value="${item.id}" 
+						th:text="${item.stato}"
+						>
+						</option>
+						</select>
 						 
 						 <div th:if="${#fields.hasAnyErrors()}">
 							<ul>

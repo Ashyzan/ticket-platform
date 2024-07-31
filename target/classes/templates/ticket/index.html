@@ -82,7 +82,7 @@
 		      <td th:text="${item.titoloTicket}"></td>
 			 <td th:text="${#temporals.format(item.dataTicket, 'dd/MM/yyyy')}"></td>
 <!--			<td th:text="${item.categoria.categoria}"></td>-->
-			<td th:text="Pippo"></td>
+			<td th:text="${item.stato.stato}"></td>
 			<td th:text="Pippo"></td>
 			 <td>
 				<a th:style="|display:inline;|" th:href="@{|/ticket/detail/${item.id}|}" class="btn text-dark"><i class="bi bi-list-ol"></i></a>

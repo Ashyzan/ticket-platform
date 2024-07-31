@@ -12,30 +12,22 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "categoria")
-public class Categoria {
-    
+@Table(name = "stato")
+public class Stato {
+
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 
-	@NotBlank(message = "Il nome della categoria è obbligatorio")
-	@Column(name = "categoria", nullable = false)
-	private String categoria;
+	@NotBlank(message = "Lo stato del ticket è obbligatorio")
+	@Column(name = "stato", nullable = false)
+	private String stato;
 	
-	@OneToMany(mappedBy = "categoria")
+	@OneToMany(mappedBy = "stato")
 	private List<Ticket> tickets;
 	
 	// GETTER SETTER
-
-	public List<Ticket> getTickets() {
-	    return tickets;
-	}
-
-	public void setTickets(List<Ticket> tickets) {
-	    this.tickets = tickets;
-	}
 
 	public Integer getId() {
 	    return id;
@@ -45,16 +37,23 @@ public class Categoria {
 	    this.id = id;
 	}
 
-	public String getCategoria() {
-	    return categoria;
+	public String getStato() {
+	    return stato;
 	}
 
-	public void setCategoria(String categoria) {
-	    this.categoria = categoria;
+	public void setStato(String stato) {
+	    this.stato = stato;
 	}
 
+	public List<Ticket> getTickets() {
+	    return tickets;
+	}
 
-    
+	public void setTickets(List<Ticket> tickets) {
+	    this.tickets = tickets;
+	}
+	
+	
 	
 	
 }
