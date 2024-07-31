@@ -27,7 +27,73 @@
 		  </div>
 		</div>
 		
-			
+<!--		NOTE-->
+
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="col mt-4">
+		
+		  <div  th:unless="${note.size() <= 0}">
+				<h3>Note</h3>				
+					  <div th:each="item: ${note}" class="card" style="width: 100%; display:inline-block;">
+					    <div class="card-body">
+						  <p><b>Autore: </b><span th:text="AUTORE"></span></p>
+						  <p><b>Data: </b><span th:text="${#temporals.format(item.dataNota, 'dd/MM/yyyy')}"></span></p>
+					      <p class="card-text" th:text="${item.descrizioneNota}"></p>
+						 
+					    </div>
+					  </div>
+					  
+	</div>
+	</div>
+ </div>
+</div>
+
+<!--INSERISCI UNA NUOVA NOTA			  		-->
+		<div class="container px-4">
+		  <div class="row gx-5">
+		    <div class="col mt-4">
+		     
+				
+				<h3 class="mb-4">Inserisci una nuova nota</h3>
+				
+				<form id="formnote"
+						th:action="@{/notes/create}"
+						method="post"
+						th:object="${nuovaNota}">
+
+						<div class="mb-3">
+						<label for="input" class="form-group">Descrizione nota</label>
+					 <textarea class="form-control" th:field="*{descrizioneNota}"></textarea>
+						</div>
+
+						<div class="mb-3">	
+						  <th:field="*{ticket.id}">
+						</div>
+						<div class="mb-3">	
+					      <th:field="*{dataNota}">
+						</div>
+<!--						<div class="mb-3">	-->
+<!--						  <th:field="*{user}">-->
+<!--						</div>-->
+
+<!--						// ERRORI //-->
+						 <div th:if="${#fields.hasAnyErrors()}">
+							<ul>
+								<li th:each="err : ${#fields.allErrors()}" 
+									th:text="${err}">
+									Errore
+								</li>
+							</ul>
+						 </div>
+						 
+						 <div class="col-auto">
+						   <button type="submit" class="btn btn-primary mb-3">Salva</button>
+						 </div>
+				</form>	  
+			</div>
+		    </div>	    
+		  </div>			
 		
 		
 	  

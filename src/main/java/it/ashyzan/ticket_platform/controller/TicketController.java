@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import it.ashyzan.ticket_platform.model.Notes;
 import it.ashyzan.ticket_platform.model.Ticket;
 import it.ashyzan.ticket_platform.repository.CategoriaRepo;
+import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.StatoRepo;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
 import jakarta.validation.Valid;
@@ -29,6 +31,9 @@ public class TicketController {
     
     @Autowired
     private StatoRepo statorepository;
+    
+    @Autowired
+    private NoteRepository noterepository;
     
     @GetMapping("dashboard")
 	public String index(Model model) {
@@ -63,10 +68,30 @@ public class TicketController {
 	public String dettaglioTicket(@PathVariable("id") Integer id, Model model) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
 		model.addAttribute("ticket", ticket);
+		model.addAttribute("note", noterepository.findAll());
+		model.addAttribute("nuovaNota", new Notes());
 		
-
-		return "/ticket/details";
+//		if (bindingresult.hasErrors()) {
+//			   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+//				return "/detail/{id}";
+//			}
+		
+//			ticketrepository.save(ticket);
+			return "/ticket/details";
 	}
+    
+    @PostMapping("/notes/create")
+    public String salvaNote() {
+	
+//	if (bindingresult.hasErrors()) {
+//	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+//		return "/detail/{id}";
+//	}
+
+//	ticketrepository.save(ticket);
+	
+	return "/ticket/details";
+    }
     
 ///////////////////////////// MODIFICA TICKET ESISTENTI
 

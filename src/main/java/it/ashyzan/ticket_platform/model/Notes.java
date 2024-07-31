@@ -23,8 +23,8 @@ public class Notes {
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
 	
-	@NotBlank(message = "La descrizione della nota è obbligatoria")
-	@Column(name = "descrizioneNota", nullable = false)
+        @NotBlank(message = "La descrizione della nota è obbligatoria")
+	@Column(name = "descrizioneNota", columnDefinition = "TEXT", nullable = false)
 	private String descrizioneNota;
 	
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -44,6 +44,7 @@ public class Notes {
 	public void setId(Integer id) {
 	    this.id = id;
 	}
+
 
 	public String getDescrizioneNota() {
 	    return descrizioneNota;
