@@ -1,6 +1,7 @@
 package it.ashyzan.ticket_platform.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -35,7 +37,6 @@ public class Ticket {
 	
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "dataTicket", nullable = false)
-//	private LocalDate dataTicket;
 	private LocalDate dataTicket = LocalDate.now();
 	
 	@ManyToOne
@@ -46,7 +47,18 @@ public class Ticket {
 	@JoinColumn(name = "stato_id", nullable = false)
 	private Stato stato;
 	
+	@OneToMany(mappedBy = "ticket")
+	private List<Notes> note;
+	
 	// GETTER SETTER
+
+	public List<Notes> getNote() {
+	    return note;
+	}
+
+	public void setNote(List<Notes> note) {
+	    this.note = note;
+	}
 
 	public Stato getStato() {
 	    return stato;

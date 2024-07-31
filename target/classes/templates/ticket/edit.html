@@ -36,22 +36,26 @@
 						</div>
 						
 						<!--	SELEZIONA LA CATEGORIA-->
-						<select class="form-select mb-3" th:field="*{categoria.id}">
+						<div class="mb-3">
+							<label for="input" class="form-group">Scegli la categoria ticket</label>	 
+						<select class="form-select" th:field="*{categoria.id}">
 						 <option th:each="item : ${DB_categorie}" 
 						th:value="${item.id}" 
-						th:text="${item.categoria}"
-						>
+						th:text="${item.categoria}">
 						</option>
 						</select>
+						</div>
 												
 						<!--   SELEZIONA LO STATO-->
+						<div class="mb-3">
+						<label for="input" class="form-group">Scegli lo stato del ticket</label>
 						<select class="form-select mb-3" th:field="*{stato.id}">
 						<option th:each="item : ${DB_stato}" 
 						th:value="${item.id}" 
-						th:text="${item.stato}"
-						>
+						th:text="${item.stato}">
 						</option>
 						</select>
+						</div>
 						 
 						 <div th:if="${#fields.hasAnyErrors()}">
 							<ul>
