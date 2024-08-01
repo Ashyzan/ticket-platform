@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.ashyzan.ticket_platform.model.Notes;
 import it.ashyzan.ticket_platform.model.Ticket;
+import it.ashyzan.ticket_platform.model.User;
 import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
+import it.ashyzan.ticket_platform.repository.UserRepository;
 import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/notes")
 public class NotesController {
+    @Autowired
+    private UserRepository userrepository;
     
     @Autowired
     private TicketRepository ticketrepository;
@@ -50,10 +54,12 @@ public class NotesController {
 			return "/notes/addnotes";
 	}
     
-    @PostMapping("/quickadd")
+    @PostMapping("/{id}/quickadd")
     public String salvaQuickNota(@Valid @ModelAttribute("nuovaNota") Notes note, 
+	    @PathVariable("id") Integer id,
 	    BindingResult bindingresult, Model model) {
 
+	User user1 = userrepository.findById(id).get();
 //	if (bindingresult.hasErrors()) {
 //	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
 //		return "/detail/{id}";

@@ -17,6 +17,7 @@ import it.ashyzan.ticket_platform.repository.CategoriaRepo;
 import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.StatoRepo;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
+import it.ashyzan.ticket_platform.repository.UserRepository;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,8 +36,12 @@ public class TicketController {
     @Autowired
     private NoteRepository noterepository;
     
+    @Autowired
+    private UserRepository userrepository;
+    
     @GetMapping("dashboard")
 	public String index(Model model) {
+	
 		
 		model.addAttribute("ticket", ticketrepository.findAll());
 
@@ -49,6 +54,7 @@ public class TicketController {
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("DB_categorie", categoriarepository.findAll());
 		model.addAttribute("DB_stato", statorepository.findAll());
+		model.addAttribute("DB_operatore", userrepository.findAll());
 		return "/ticket/create";
 	}
     
@@ -112,6 +118,7 @@ public class TicketController {
  		model.addAttribute("ticket", ticketrepository.findById(id).get());
  		model.addAttribute("DB_categorie", categoriarepository.findAll());
 		model.addAttribute("DB_stato", statorepository.findAll());
+		model.addAttribute("DB_operatore", userrepository.findAll());
  		model.addAttribute("editMode", true);
  		return "/ticket/edit";
  	}
@@ -127,5 +134,14 @@ public class TicketController {
 
  		return "redirect:/ticket/dashboard";
  	}
+ 
+ /////////////// CANCELLA TICKET
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+
+		ticketrepository.deleteById(id);
+
+		return "redirect:/ticket/dashboard";
+	}
 
 }

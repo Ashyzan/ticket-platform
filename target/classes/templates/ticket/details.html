@@ -54,7 +54,7 @@
 				<p><b>Data creazione: </b><span th:text="${#temporals.format(ticket.dataTicket, 'dd/MM/yyyy')}"></span></p>
 				<p><b>Categoria Ticket: </b><span th:text="${ticket.categoria.categoria}"></span></p>
 				<p><b>Stato: </b><span th:text="${ticket.stato.stato}"></span></p>
-				<p><b>Operatore: </b><span th:text="Operatore"></span></p>
+				<p><b>Operatore: </b><span th:text="${ticket.user.nome}"></span></p>
 				<p><b>Titolo: </b><span th:text="${ticket.titoloTicket}"></span></p>
 				<p><b>Descrizione:</b></p><span th:text="${ticket.descrizioneTicket}"></span>
 			</div>

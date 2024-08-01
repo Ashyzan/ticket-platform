@@ -50,7 +50,19 @@ public class Ticket {
 	@OneToMany(mappedBy = "ticketNota")
 	private List<Notes> note;
 	
+	@ManyToOne
+  	@JoinColumn(name = "user_id", nullable = false)
+  	private User user;
+	
 	// GETTER SETTER
+
+	public User getUser() {
+	    return user;
+	}
+
+	public void setUser(User user) {
+	    this.user = user;
+	}
 
 	public List<Notes> getNote() {
 	    return note;

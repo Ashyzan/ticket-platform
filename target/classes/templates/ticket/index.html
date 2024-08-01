@@ -65,7 +65,6 @@
 		frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 	</div>
 
-
 		<table class="table table-bordered" th:unless="${ticket.isEmpty()}">
 		  <thead>
 		    <tr>
@@ -81,24 +80,13 @@
 			th:each="item : ${ticket}">
 		      <td th:text="${item.titoloTicket}"></td>
 			 <td th:text="${#temporals.format(item.dataTicket, 'dd/MM/yyyy')}"></td>
-<!--			<td th:text="${item.categoria.categoria}"></td>-->
 			<td th:text="${item.stato.stato}"></td>
-			<td th:text="Pippo"></td>
+			<td th:text="${item.user.nome}"></td>
 			 <td>
 				<a th:style="|display:inline;|" th:href="@{|/ticket/detail/${item.id}|}" class="btn text-dark"><i class="bi bi-list-ol"></i></a>
 				<a th:style="|display:inline;|" th:href="@{|/ticket/edit/${item.id}|}" class="btn text-dark"><i class="bi bi-pencil-square"></i></a>
 				<a th:style="|display:inline;|" th:href="@{|/notes/add/${item.id}|}" class="btn text-dark"><i class="bi bi-plus-circle"></i></a>
-				
 
-<!--				<a sec:authorize="hasAuthority('ADMIN')" th:style="|display:inline;float:left;|" th:href="@{|/offerte/edit/${item.id}|}"><i class="btn bi bi-pencil-square"></i></a>-->
-			  			<!--pulsante delete-->
-	<!--					<a sec:authorize="hasAuthority('ADMIN')" th:style="|display:inline;float:left;|">-->
-	<!--						<form action="#" th:action="@{|/offerte/delete/${item.id}|}" method="post">-->
-	<!--							<button class="btn" type="submit" id="submitbutton"-->
-	<!--							  	th:data-confirm-delete="|Sei sicuro di voler cancellare?|" -->
-	<!--							  	onclick="if(!confirm(this.getAttribute('data-confirm-delete'))) return false">-->
-	<!--								<i class="bi bi-trash3"></i></button>-->
-	<!--					</a>							-->
 							
 			  		
 				</td>

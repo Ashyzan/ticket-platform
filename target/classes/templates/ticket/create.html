@@ -32,13 +32,6 @@
 		        </li>
 		
 		      </ul>
-	<!--	      <form class="d-flex" role="search" th:action="@{/ticket/dashboard/filtra}" method="get">-->
-	<!--	        <input  -->
-	<!--			th:object="${ticket}"-->
-	<!--			type="text"-->
-	<!--			class="form-control me-2" placeholder="Cerca" aria-label="Search">-->
-	<!--	        <button class="btn btn-outline-info" type="submit">Cerca...</button>-->
-	<!--	      </form>-->
 	
 			<form class="d-flex" method="get" th:action="@{/search}">
 			  <input 
@@ -79,6 +72,7 @@
 					      <th:field="*{dataTicket}">
 						</div>
 <!--						SELEZIONA LA CATEGORIA-->
+					<label for="input" class="form-group">Seleziona la categoria</label>
 						<select class="form-select mb-3" th:field="*{categoria.id}">
 						    <option th:each="item : ${DB_categorie}" 
 							th:value="${item.id}" th:text="${item.categoria}">
@@ -86,9 +80,17 @@
 						</select>
 						
 <!--						SELEZIONA LO STATO-->
+<label for="input" class="form-group">Scegli lo stato</label>
 						<select class="form-select mb-3" th:field="*{stato.id}">
 						 <option th:each="item : ${DB_stato}" 
 						th:value="${item.id}" th:text="${item.stato}">
+						</option>
+						</select>
+<!--						SELEZIONA OPERATORE-->
+<label for="input" class="form-group">Affida a un operatore</label>
+						<select class="form-select mb-3" th:field="*{user.id}">
+						<option th:each="item : ${DB_operatore}" 
+						th:value="${item.id}" th:text="${item.nome}">
 						</option>
 						</select>
 <!--						// ERRORI //-->

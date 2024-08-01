@@ -35,6 +35,10 @@ public class Notes {
 	@JoinColumn(name = "ticketNota", nullable = false)
 	private Ticket ticketNota;
 	
+	@ManyToOne
+  	@JoinColumn(name = "user_id", nullable = false)
+  	private User user;
+	
 	// GETTER SETTER
 
 	public Ticket getTicketNota() {
