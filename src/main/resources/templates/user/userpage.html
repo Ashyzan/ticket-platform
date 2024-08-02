@@ -26,7 +26,7 @@
 				<a class="nav-link" th:href="@{/ticket/create}">Crea Ticket</a>
 	        </li>
 	        <li class="nav-item">
-				<a class="nav-link" th:href="@{/ticket/create}">Area personale</a>
+				<a class="nav-link" th:href="@{/user/dashboard/1}">Area personale</a>
 	        </li>
 	
 	      </ul>
@@ -52,28 +52,7 @@
 	  <div class="card-body">
 	    <h5 th:text="${nome}" class="card-title"></h5>
 	    <p class="card-text">Email: <span th:text="${email}"></span></p>
-		
-		<th:block th:if="${#bools.isTrue(flag)}" >
-			<form method="post"
-			th:action="@{|/user/${id}/saveflag|}"
-			th:object="${user}">
-				
-<!--				<div class="form-check">-->
-<!--				  <input class="form-check-input" type="checkbox" value="1" th:field="*{flagDisponibile}">-->
-<!--				  <label class="form-check-label" for="flexCheckDefault">-->
-<!--				    Default checkbox-->
-<!--				  </label>-->
-<!--				</div>-->
-
-<!--<select class="form-select" th:field="*{user.nome}">-->
-<!--  <option value="0">Disponibile</option>-->
-<!--  <option value="1">Non disponibile</option>-->
-
-</select>
-				<button type="submit" class="btn btn-info mb-3">Salva</button>
-			</form>
-		</th:block>
-		    
+		<a style="text-decoration: underline;" class="nav-link" th:href="@{|/user/edit/${id}|}">Modifica</a>    
 	  </div>
 	</div>
 
@@ -82,52 +61,7 @@
  
 </div>
 
-<!--MODIFICA DETTAGLI USER-->
-<div class="col mt-4 mr-4 ml-4">
-	<div style="max-width: 21rem;">
-<form id="formuser"
-						th:action="@{|/user/edit/${id}|}"
-						method="post"
-						th:object="${user}">
-						
-						<div class="mb-3">
-						  <label for="input" class="form-group">Nome</label>
-						  <input type="text" class="form-control" id="nome" placeholder="Nome" 
-						  		>
-						</div>
-						
-						<div class="mb-3">
-								<label for="input" class="form-group">Email</label>
-								<input type="text" class="form-control" id="email" 
-								placeholder="Email" 
-								>
-						</div>
-												
-						<div class="mb-3">
-								<label for="input" class="form-group">Password</label>
-									<input type="text" class="form-control" id="password" 
-									placeholder="password" 
-										>
-						</div>					
-						
-						 
-<!--						 <div th:if="${#fields.hasAnyErrors()}">-->
-<!--							<ul>-->
-<!--								<li th:each="err : ${#fields.allErrors()}" -->
-<!--									th:text="${err}">-->
-<!--									Errore-->
-<!--								</li>-->
-<!--							</ul>-->
-<!--						 </div>-->
-						 
-						 <div class="col-auto">
-						   <button type="submit" class="btn btn-primary mb-3">Salva</button>
-						 </div>
-				</form>	  
-				
- </div>
-</div>
-</div>			
+
 	
 <!--	ELENCO TICKET PER USER-->
 <div>

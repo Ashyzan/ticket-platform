@@ -44,29 +44,6 @@ public class UserController {
         model.addAttribute("ruolo",  user.getRole());
         model.addAttribute("flagUser",  user.getFlagDisponibile());
 	model.addAttribute("listaTicketuser", user.getListaTicket());
-	// recupero i ticket associati all'utente in una variabile
-	List<Ticket> ticketUser = user.getListaTicket();
-	// creo una lista ticket vuota
-	List<Ticket> ticketDaFare = new ArrayList<>();
-	// ciclo i ticket dell'utente, se lo stato è diverso da 3 (da fare) aggiungi alla lista vuota
-	for (Ticket item: ticketUser) {
-            
-	   if( item.getStato().getId() != 3) {
-	       
-	       ticketDaFare.add(item);
-	   }
-	   
-        }
-	// se la nuova lista is empty stato "non attivo" is visible
-	if(ticketDaFare.isEmpty()) {
-	    
-	    model.addAttribute("flag", true);    
-	}
-	
-	else {
-	    model.addAttribute("flag", false); 
-	    
-	}
 
 		return "/user/userpage";
 	}
@@ -83,10 +60,34 @@ public class UserController {
 ///////////////////////////// MODIFICA DATI USER /////////////////////////////
 
     @GetMapping("/edit/{id}")
-    public String modificaUser(@PathVariable("id") Integer id, Model model) {
-    model.addAttribute("user", userrepository.findById(id).get());
+    public String modificaUser(@PathVariable("id") Integer id, Model model, User user) {
+	User userutente = userrepository.findById(id).get();
+    model.addAttribute("userutente", userutente);
     model.addAttribute("editMode", true);
-    return "/user/userpage";
+ // recupero i ticket associati all'utente in una variabile
+ 	List<Ticket> ticketUser = userutente.getListaTicket();
+ 	// creo una lista ticket vuota
+ 	List<Ticket> ticketDaFare = new ArrayList<>();
+ 	// ciclo i ticket dell'utente, se lo stato è diverso da 3 (da fare) aggiungi alla lista vuota
+ 	for (Ticket item: ticketUser) {
+             
+ 	   if( item.getStato().getId() != 3) {
+ 	       
+ 	       ticketDaFare.add(item);
+ 	   }
+ 	   
+         }
+ 	// se la nuova lista is empty stato "non attivo" is visible
+ 	if(ticketDaFare.isEmpty()) {
+ 	    
+ 	    model.addAttribute("flag", true);    
+ 	}
+ 	
+ 	else {
+ 	    model.addAttribute("flag", false); 
+ 	    
+ 	}
+    return "/user/edituser";
     }
     
     @PostMapping("/edit/{id}")
