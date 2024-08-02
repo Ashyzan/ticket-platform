@@ -39,12 +39,12 @@ public class TicketController {
     @Autowired
     private UserRepository userrepository;
     
+
+    
     @GetMapping("dashboard")
 	public String index(Model model) {
-	
-		
-		model.addAttribute("ticket", ticketrepository.findAll());
 
+		model.addAttribute("ticket", ticketrepository.findAll());
 		return "/ticket/index";
 	}
     
@@ -114,7 +114,7 @@ public class TicketController {
 ///////////////////////////// MODIFICA TICKET ESISTENTI
 
  	@GetMapping("/edit/{id}")
- 	public String modificaPizza(@PathVariable("id") Integer id, Model model) {
+ 	public String modificaTicket(@PathVariable("id") Integer id, Model model) {
  		model.addAttribute("ticket", ticketrepository.findById(id).get());
  		model.addAttribute("DB_categorie", categoriarepository.findAll());
 		model.addAttribute("DB_stato", statorepository.findAll());

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import it.ashyzan.ticket_platform.model.User;
 import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
 import it.ashyzan.ticket_platform.repository.UserRepository;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -59,6 +62,11 @@ public class UserController {
 	    
 	    model.addAttribute("flag", true);    
 	}
+	
+	else {
+	    model.addAttribute("flag", false); 
+	    
+	}
 
 		return "/user/userpage";
 	}
@@ -71,5 +79,26 @@ public class UserController {
 		userrepository.save(user1);
 		return "redirect:/ticket/dashboard";
 	}
+    
+///////////////////////////// MODIFICA DATI USER /////////////////////////////
+
+    @GetMapping("/edit/{id}")
+    public String modificaUser(@PathVariable("id") Integer id, Model model) {
+    model.addAttribute("user", userrepository.findById(id).get());
+    model.addAttribute("editMode", true);
+    return "/user/userpage";
+    }
+    
+    @PostMapping("/edit/{id}")
+    public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingresult, Model model) {
+    
+    if (bindingresult.hasErrors()) {
+    bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+    	return "/edit/{id}";
+    }
+    userrepository.save(user);
+    
+    return "redirect:/ticket/dashboard";
+    }
 
 }

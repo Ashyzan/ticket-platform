@@ -36,7 +36,7 @@ public class Notes {
 	private Ticket ticketNota;
 	
 	@ManyToOne
-  	@JoinColumn(name = "user_id", nullable = false)
+  	@JoinColumn(name = "user_id", nullable = true)
   	private User user;
 	
 	// GETTER SETTER
@@ -72,6 +72,14 @@ public class Notes {
 
 	public void setDataNota(LocalDate dataNota) {
 	    this.dataNota = dataNota;
+	}
+
+	public User getUser() {
+	    return user;
+	}
+
+	public void setUser(User user) {
+	    this.user = user;
 	}
 
 

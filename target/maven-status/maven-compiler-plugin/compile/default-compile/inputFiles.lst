@@ -1,5 +1,4 @@
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/TicketPlatformApplication.java
-/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/NoteController.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/NotesController.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/TicketController.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/controller/TicketFilter.java
@@ -15,3 +14,6 @@
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/repository/StatoRepo.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/repository/TicketRepository.java
 /Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/repository/UserRepository.java
+/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/security/DatabaseUserDetails.java
+/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/security/DatabaseUserDetailsService.java
+/Users/ashyzan/Documents/boolean/SPRINGBOOT/ticket-platform/src/main/java/it/ashyzan/ticket_platform/security/SecurityConfiguration.java
