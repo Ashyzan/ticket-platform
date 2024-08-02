@@ -52,8 +52,8 @@
 					
 		<div style="max-width: 50%; margin:0 auto;">
 			<h3 class="mb-4">Modifica dati user</h3>
-	<form id="formuser"
-							th:action="@{|/user/edit/${id}|}"
+						<form id="formuser"
+							th:action="@{|/user/edit/${id}|}" 
 							method="post"
 							th:object="${userutente}">
 							
@@ -62,7 +62,8 @@
 							  <input type="text" class="form-control" id="nome" placeholder="Nome" 
 							  	th:field="*{nome}">
 							</div>
-							
+							<input type="hidden" th:field="*{username}">
+							<input type="hidden" th:field="*{role.id}">
 							<div class="mb-3">
 									<label for="input" class="form-group">Email</label>
 									<input type="text" class="form-control" id="email" 
@@ -76,19 +77,12 @@
 										placeholder="password" 
 										th:field="*{password}">
 									</div>					
-									<th:block th:if="${#bools.isTrue(flag)}" >
+									<div th:if="${#bools.isTrue(flag)}" >
 										<select class="form-select" th:field="*{flagDisponibile}">
 										  <option value="0">Disponibile</option>
 										  <option value="1">Non disponibile</option>
 										</select>
-									</th:block>		
-											
-							<!--				<div class="form-check">-->
-							<!--				  <input class="form-check-input" type="checkbox" value="1" th:field="*{flagDisponibile}">-->
-							<!--				  <label class="form-check-label" for="flexCheckDefault">-->
-							<!--				    Default checkbox-->
-							<!--				  </label>-->
-							<!--				</div>-->
+									</div>	
 							
 
 		 

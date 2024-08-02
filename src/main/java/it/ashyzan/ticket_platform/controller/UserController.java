@@ -19,7 +19,6 @@ import it.ashyzan.ticket_platform.model.User;
 import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.TicketRepository;
 import it.ashyzan.ticket_platform.repository.UserRepository;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -46,15 +45,6 @@ public class UserController {
 	model.addAttribute("listaTicketuser", user.getListaTicket());
 
 		return "/user/userpage";
-	}
-    
-    @PostMapping("/{id}/saveflag")
-	public String saveflag(@ModelAttribute("user") @PathVariable("id") Integer id, 
-	User user, Model model) {
-	User user1 = userrepository.findById(id).get();
-	model.addAttribute("user",  user1);
-		userrepository.save(user1);
-		return "redirect:/ticket/dashboard";
 	}
     
 ///////////////////////////// MODIFICA DATI USER /////////////////////////////
@@ -91,8 +81,8 @@ public class UserController {
     }
     
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("user") User user, BindingResult bindingresult, Model model) {
-    
+    public String update(@ModelAttribute("user") User user, BindingResult bindingresult, Model model) {
+
     if (bindingresult.hasErrors()) {
     bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
     	return "/edit/{id}";
