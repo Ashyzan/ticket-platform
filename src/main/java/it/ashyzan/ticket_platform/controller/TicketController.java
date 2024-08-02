@@ -92,9 +92,9 @@ public class TicketController {
 		return "redirect:/ticket/dashboard";
 	}
     
-    // DETTAGLIO TICKET E NOTE AGGIUNGI NOTA
+    // DETTAGLIO TICKET E NOTE 
     @GetMapping("/detail/{id}")
-	public String dettaglioTicket(@PathVariable("id") Integer id, Model model,BindingResult bindingresult ) {
+	public String dettaglioTicket(@PathVariable("id") Integer id, Model model ) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
 		Notes nuovaNota = new Notes();
 
@@ -108,22 +108,17 @@ public class TicketController {
 		model.addAttribute("nuovaNota", nuovaNota);
 		
 		
-		if (bindingresult.hasErrors()) {
-			   bindingresult.addError(new ObjectError
-		("Errore di inserimento", "Il campo è obbligatorio"));
-				return "/detail/{id}";
-			}
-		
 			return "/ticket/details";
 	}
     
-    @PostMapping("/notes/create/")
+   ///// AGGIUNGI NOTA
+    @PostMapping("/detail/{id}")
     public String salvaNote(@Valid @ModelAttribute("nuovaNota") Notes note, 
 	    BindingResult bindingresult, Model model) {
 
 	if (bindingresult.hasErrors()) {
 	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
-		return "/detail/{id}";
+	   return "redirect:/ticket/detail/" + note.getTicketNota().getId();
 	}
 
 	noterepository.save(note);

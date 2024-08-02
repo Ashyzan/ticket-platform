@@ -52,6 +52,9 @@
 	  <div class="card-body">
 	    <h5 th:text="${nome}" class="card-title"></h5>
 	    <p class="card-text">Email: <span th:text="${email}"></span></p>
+		
+		<p th:text="${utenteloggato}"></p>
+		
 		<a style="text-decoration: underline;" class="nav-link" th:href="@{|/user/edit/${id}|}">Modifica</a>    
 	  </div>
 	</div>

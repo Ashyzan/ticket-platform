@@ -37,14 +37,14 @@ public class UserController {
 	public String indexPage(@PathVariable("id") Integer id, Model model) {
 	
 	User user = userrepository.findById(id).get();
-    
+	model.addAttribute("utenteloggato", System.getProperty("user.name"));
         model.addAttribute("nome",  user.getNome());
         model.addAttribute("email",  user.getEmail());
         model.addAttribute("ruolo",  user.getRole());
         model.addAttribute("flagUser",  user.getFlagDisponibile());
 	model.addAttribute("listaTicketuser", user.getListaTicket());
 
-		return "/user/userpage";
+	 	return "/user/userpage";
 	}
     
 ///////////////////////////// MODIFICA DATI USER /////////////////////////////
