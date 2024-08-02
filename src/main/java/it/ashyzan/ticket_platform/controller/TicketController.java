@@ -1,5 +1,8 @@
 package it.ashyzan.ticket_platform.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.ashyzan.ticket_platform.model.Notes;
 import it.ashyzan.ticket_platform.model.Ticket;
+import it.ashyzan.ticket_platform.model.User;
 import it.ashyzan.ticket_platform.repository.CategoriaRepo;
 import it.ashyzan.ticket_platform.repository.NoteRepository;
 import it.ashyzan.ticket_platform.repository.StatoRepo;
@@ -54,7 +58,24 @@ public class TicketController {
 		model.addAttribute("ticket", new Ticket());
 		model.addAttribute("DB_categorie", categoriarepository.findAll());
 		model.addAttribute("DB_stato", statorepository.findAll());
-		model.addAttribute("DB_operatore", userrepository.findAll());
+		
+		
+		// FILTRO OPERATORE NON DISPONIBILE
+		List<User> listaUserDB = userrepository.findAll();
+		List<User> listaUserDisponibili = new ArrayList<>();
+		
+		for (User item: listaUserDB) {
+	             
+		 	   if( item.getFlagDisponibile() == false) {
+		 	       
+		 	      listaUserDisponibili.add(item);
+		 	   }
+		 	  
+		         }
+		model.addAttribute("DB_operatore", listaUserDisponibili);
+
+		 	
+		 	
 		return "/ticket/create";
 	}
     
@@ -73,7 +94,7 @@ public class TicketController {
     
     // DETTAGLIO TICKET E NOTE AGGIUNGI NOTA
     @GetMapping("/detail/{id}")
-	public String dettaglioTicket(@PathVariable("id") Integer id, Model model) {
+	public String dettaglioTicket(@PathVariable("id") Integer id, Model model,BindingResult bindingresult ) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
 		Notes nuovaNota = new Notes();
 
@@ -87,11 +108,11 @@ public class TicketController {
 		model.addAttribute("nuovaNota", nuovaNota);
 		
 		
-//		if (bindingresult.hasErrors()) {
-//			   bindingresult.addError(new ObjectError
-//		("Errore di inserimento", "Il campo è obbligatorio"));
-//				return "/detail/{id}";
-//			}
+		if (bindingresult.hasErrors()) {
+			   bindingresult.addError(new ObjectError
+		("Errore di inserimento", "Il campo è obbligatorio"));
+				return "/detail/{id}";
+			}
 		
 			return "/ticket/details";
 	}
@@ -100,10 +121,10 @@ public class TicketController {
     public String salvaNote(@Valid @ModelAttribute("nuovaNota") Notes note, 
 	    BindingResult bindingresult, Model model) {
 
-//	if (bindingresult.hasErrors()) {
-//	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
-//		return "/detail/{id}";
-//	}
+	if (bindingresult.hasErrors()) {
+	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+		return "/detail/{id}";
+	}
 
 	noterepository.save(note);
 	return "redirect:/ticket/detail/" + note.getTicketNota().getId();
