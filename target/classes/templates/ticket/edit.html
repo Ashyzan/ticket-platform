@@ -52,8 +52,32 @@
 		     
 				
 				<h3 class="mb-4">Modifica il ticket</h3>
+
+
+<!--DETTAGLI TICKET (SOLO USER)-->
+<div sec:authorize="hasAuthority('OPERATORE')">
+
+		<div class="container px-4">
+		  <div class="row gx-5">
+		    <div class="col mt-4">
+		     
 				
-				<form id="formticket" class="needs-validation" novalidate
+				<h3 class="mb-4">Dettaglio del Ticket "<span th:text="${ticket.titoloTicket}"></span>"</h3>
+				
+				<p><b>Data creazione: </b><span th:text="${#temporals.format(ticket.dataTicket, 'dd/MM/yyyy')}"></span></p>
+				<p><b>Categoria Ticket: </b><span th:text="${ticket.categoria.categoria}"></span></p>
+				<p><b>Stato: </b><span th:text="${ticket.stato.stato}"></span></p>
+				<p><b>Operatore: </b><span th:text="${ticket.user.nome}"></span></p>
+				<p><b>Titolo: </b><span th:text="${ticket.titoloTicket}"></span></p>
+				<p><b>Descrizione:</b></p><span th:text="${ticket.descrizioneTicket}"></span>
+			</div>
+		    </div>	    
+		  </div>
+		</div>
+<!--FINE DETTAGLI TICKET-->
+
+<!--FORM MODIFICA TICKET ADMIN-->
+				<form sec:authorize="hasAuthority('ADMIN')" id="formticket" class="needs-validation" novalidate
 						th:action="${editMode} ? @{|/ticket/edit/${ticket.id}|} : @{/ticket/create/}"
 						method="post"
 						th:object="${ticket}">
@@ -103,13 +127,15 @@
 						</select>
 						</div>
 						<!--						SELEZIONA OPERATORE-->
+						<div>
 						<label for="input" class="form-group">Affida a un operatore</label>
 												<select class="form-select mb-3" th:field="*{user.id}">
 												<option th:each="item : ${DB_operatore}" 
 												th:value="${item.id}" th:text="${item.nome}">
 												</option>
 												</select>
-						 
+							</div>
+<!--		ERRORI					-->
 						 <div th:if="${#fields.hasAnyErrors()}">
 							<ul>
 								<li th:each="err : ${#fields.allErrors()}" 
@@ -122,9 +148,51 @@
 						 <div class="col-auto">
 						   <button type="submit" class="btn btn-info mb-3">Salva</button>
 						 </div>
-				</form>	  
-				<div class="mt-4 mb-4">
+				</form>
+<!--FINE FORM MODIFICA TICKET ADMIN-->
+
+<!--FORM MODIFICA TICKET OPERATORE-->
+				<form sec:authorize="hasAuthority('OPERATORE')" id="formticket" class="needs-validation" novalidate
+						th:action="${editMode} ? @{|/ticket/edit/${ticket.id}|} : @{/ticket/create/}"
+						method="post"
+						th:object="${ticket}">
+						
+						
+						  <input type="hidden" th:field="*{titoloTicket}">
+						  <input type="hidden" th:field="*{descrizioneTicket}">
+						  <input type="hidden" th:field="*{categoria.id}">
+						  <input type="hidden" th:field="*{user.id}">
+						  <th:field="*{dataTicket}">
+												
+						<!--   SELEZIONA LO STATO-->
+						<div class="mt-4 mb-3">
+						<label for="input" class="form-group">Scegli lo stato del ticket</label>
+						<select class="form-select mb-3" th:field="*{stato.id}">
+						<option th:each="item : ${DB_stato}" 
+						th:value="${item.id}" 
+						th:text="${item.stato}">
+						</option>
+						</select>
+						</div>
+
+<!--		ERRORI					-->
+						 <div th:if="${#fields.hasAnyErrors()}">
+							<ul>
+								<li th:each="err : ${#fields.allErrors()}" 
+									th:text="${err}">
+									Errore
+								</li>
+							</ul>
+						 </div>
+						 
+						 <div class="col-auto">
+						   <button type="submit" class="btn btn-info mb-3">Salva</button>
+						 </div>
+				</form>
+<!--FINE FORM MODIFICA TICKET OPERATORE-->  
+				
 <!--		pulsante delete-->
+	<div class="mt-4 mb-4">
 		<a style="display:inline-block;"><form action="#" th:action="@{'/ticket/delete/{id}' (id=${ticket.id}) }" method="post">
 		<button sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger" type="submit" id="submitbutton"
 		th:data-confirm-delete="|Sei sicuro di voler cancellare il ticket?|" 

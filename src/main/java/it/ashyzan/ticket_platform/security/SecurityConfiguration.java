@@ -21,7 +21,7 @@ public class SecurityConfiguration {
 		// ... endpoints
 	          //  .formLogin(formLogin -> formLogin.loginPage("/login.html")
 	                
-		.requestMatchers("/ingredienti/**", "/offerte/**", "/pizzeria/create/", "/pizzeria/edit/**").hasAuthority("ADMIN")
+		.requestMatchers("/ticket/create/").hasAuthority("ADMIN")
 		.requestMatchers(HttpMethod.POST, "/pizzeria/**").hasAuthority("ADMIN")
 		.requestMatchers("/css/**", "/js/**", "/webjars/**", "/img/**").permitAll()
 //		.requestMatchers("/admin").hasAnyAuthority("ADMIN", "USER")
