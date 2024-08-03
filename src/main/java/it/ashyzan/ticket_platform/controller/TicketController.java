@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -131,11 +130,13 @@ public class TicketController {
     
    ///// AGGIUNGI NOTA
     @PostMapping("/detail/{id}")
-    public String salvaNote(@Valid @ModelAttribute("nuovaNota") Notes note, 
+    public String salvaNote(@PathVariable("id") Integer id, @Valid @ModelAttribute("nuovaNota") Notes note, 
 	    BindingResult bindingresult, Model model) {
 
+	Ticket ticket = ticketrepository.getReferenceById(id);
+	model.addAttribute("ticket", ticket);
+	
 	if (bindingresult.hasErrors()) {
-	   //bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
 	   return "/ticket/details";
 	}
 
@@ -161,8 +162,10 @@ public class TicketController {
  	public String update(@Valid @ModelAttribute("ticket") Ticket ticket, BindingResult bindingresult, Model model) {
 
  		if (bindingresult.hasErrors()) {
- 		   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
- 			return "/edit/{id}";
+ 		    	model.addAttribute("DB_categorie", categoriarepository.findAll());
+ 			model.addAttribute("DB_stato", statorepository.findAll());
+ 			model.addAttribute("DB_operatore", userrepository.findAll());
+ 			return "/ticket/edit";
  		}
  		ticketrepository.save(ticket);
 

@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class User {
@@ -18,27 +18,22 @@ public class User {
     @Id
   	private Integer id;
 
-  	@NotNull
+    	@NotBlank(message = "Il nome utente è obbligatorio")
+    	@Column(name = "nome", nullable = false)
   	private String nome;
 
-  	@NotNull
+    	@NotBlank(message = "L'email utente è obbligatoria")
+    	@Column(name = "email", nullable = false)
   	private String email;
   	
-  	@NotNull
+    	@NotBlank(message = "L'username è obbligatorio")
+    	@Column(name = "username", nullable = false)
   	private String username;
   	
-  	public String getUsername() {
-	    return username;
-	}
-
-	public void setUsername(String username) {
-	    this.username = username;
-	}
-
-	@NotNull
+    	@NotBlank(message = "La password obbligatoria")
+	@Column(name = "password", nullable = false)
   	private String password;
   	
-
   	@ColumnDefault("false")
   	@Column( nullable = true, name = "flagDisponibile")
   	private Boolean flagDisponibile;
@@ -52,6 +47,16 @@ public class User {
   	
   	@OneToMany(mappedBy = "user")
 	private List<Notes> listaNote;
+  	
+  	// GETTER SETTER
+  	
+  	public String getUsername() {
+	    return username;
+	}
+
+	public void setUsername(String username) {
+	    this.username = username;
+	}
 
 	public Integer getId() {
 	    return id;

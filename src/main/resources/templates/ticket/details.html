@@ -49,7 +49,7 @@
 		    <div class="col mt-4">
 		     
 				
-				<h3 class="mb-4">Dettagio del Ticket "<span th:text="${ticket.titoloTicket}"></span>"</h3>
+				<h3 class="mb-4">Dettaglio del Ticket "<span th:text="${ticket.titoloTicket}"></span>"</h3>
 				
 				<p><b>Data creazione: </b><span th:text="${#temporals.format(ticket.dataTicket, 'dd/MM/yyyy')}"></span></p>
 				<p><b>Categoria Ticket: </b><span th:text="${ticket.categoria.categoria}"></span></p>
@@ -62,11 +62,63 @@
 		  </div>
 		</div>
 		
+<!--INSERISCI UNA NUOVA NOTA			  		-->
+				<div class="container px-4">
+				  <div class="row gx-5">
+				    <div class="col mt-4">
+				     
+						
+						<div class="card">
+						  <div class="card-body">
+						<h3 class="mb-4">Inserisci una nuova nota</h3>
+							<form id="formnote"
+													class="row g-3 needs-validation" novalidate
+															th:action="@{|/ticket/detail/${id}|}"
+															method="post"
+															th:object="${nuovaNota}">
+																
+														<input type="hidden" th:field="*{ticketNota}" id="ticket">
+															<label for="input" class="form-group">Descrizione nota</label>
+														 <textarea class="form-control" th:field="*{descrizioneNota}" th:errorClass="is-invalid" required></textarea>
+														 <div class="invalid-feedback">
+														 	Descrivi la nota
+														 </div>
+															
+															<div class="mb-3">	
+														      <th:field="*{dataNota}">
+															</div>
+									
+															 <div class="col-auto">
+															   <button type="submit" class="btn btn-info mb-3">Salva</button>
+															 </div>
+									<!--	///////////////////////  ERRORI /////////////////////////-->
+															<div th:if="${#fields.hasAnyErrors()}">
+																<ul>
+																	<li th:each="err : ${#fields.allErrors()}" 
+																		th:text="${err}">
+																		Errore
+																	</li>
+																</ul>
+															 </div>					
+									<!--	/////////////////////// FINE ERRORI /////////////////////////-->
+													</form>	
+							
+						  </div>
+						</div>
+						  
+					</div>
+				    </div>	    
+				  </div>
+		
 <!--		NOTE-->
+
+
 
 <div class="container px-4">
   <div class="row gx-5">
     <div class="col mt-4">
+		
+		
 		
 		  <div  th:unless="${ticket.note.size() <= 0}">
 				<h3>Note</h3>				
@@ -84,49 +136,31 @@
  </div>
 </div>
 
-<!--INSERISCI UNA NUOVA NOTA			  		-->
-		<div class="container px-4">
-		  <div class="row gx-5">
-		    <div class="col mt-4">
-		     
-				
-				<h3 class="mb-4">Inserisci una nuova nota</h3>
-				
-				<form id="formnote"
-						th:action="@{|/ticket/detail/${id}|}"
-						method="post"
-						th:object="${nuovaNota}">
-						
-							
-						<div class="mb-3">
-							<input type="hidden" th:field="*{ticketNota}" id="ticket">
-						<label for="input" class="form-group">Descrizione nota</label>
-					 <textarea class="form-control" th:field="*{descrizioneNota}" th:errorClass="is-invalid"></textarea>
-						</div>
-
-						<div class="mb-3">	
-					      <th:field="*{dataNota}">
-						</div>
-
-<!--	///////////////////////  ERRORI /////////////////////////-->
-						<div th:if="${#fields.hasAnyErrors()}">
-							<ul>
-								<li th:each="err : ${#fields.allErrors()}" 
-									th:text="${err}">
-									Errore
-								</li>
-							</ul>
-						 </div>					
-<!--	/////////////////////// FINE ERRORI /////////////////////////-->
-			 
-						 <div class="col-auto">
-						   <button type="submit" class="btn btn-info mb-3">Salva</button>
-						 </div>
-				</form>	  
-			</div>
-		    </div>	    
-		  </div>			
-		
+	
+		  		
+<!--	JAVASCRIPT ERRORI-->
+		  <script>
+		  	// Example starter JavaScript for disabling form submissions if there are invalid fields
+		  	(function () {
+		  	  'use strict'
+		  	
+		  	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  	  var forms = document.querySelectorAll('.needs-validation')
+		  	
+		  	  // Loop over them and prevent submission
+		  	  Array.prototype.slice.call(forms)
+		  	    .forEach(function (form) {
+		  	      form.addEventListener('submit', function (event) {
+		  	        if (!form.checkValidity()) {
+		  	          event.preventDefault()
+		  	          event.stopPropagation()
+		  	        }
+		  	
+		  	        form.classList.add('was-validated')
+		  	      }, false)
+		  	    })
+		  	})()
+		  </script>			
 		
 	  
 	
