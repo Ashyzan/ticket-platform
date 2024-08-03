@@ -44,28 +44,29 @@ public class NotesController {
 		
 		model.addAttribute("nuovaNota", nuovaNota);
 		
-		
-//		if (bindingresult.hasErrors()) {
-//			   bindingresult.addError(new ObjectError
-//		("Errore di inserimento", "Il campo è obbligatorio"));
-//				return "/detail/{id}";
-//			}
-		
 			return "/notes/addnotes";
 	}
     
-    @PostMapping("/quickadd")
-    public String salvaQuickNota(@Valid @ModelAttribute("nuovaNota") Notes note, 
+    @PostMapping("/add/{id}")
+    public String salvaQuickNota(@PathVariable("id") Integer id, @Valid @ModelAttribute("nuovaNota") Notes note, 
 	    BindingResult bindingresult, Model model) {
 
-//	User user = userrepository.findById(id).get();
+	Ticket ticket = ticketrepository.getReferenceById(id);
+	Notes nuovaNota = new Notes();
 
+	// associo il ticket alla/e nuova nota
+	nuovaNota.setTicketNota(ticket);
+	nuovaNota.setUser(ticket.getUser());
 
-//	if (bindingresult.hasErrors()) {
-//	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
-//		return "/detail/{id}";
-//	}
+	model.addAttribute("ticket", ticket);
 
+	if (bindingresult.hasErrors()) {
+	   //bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+	   	
+	   return "/notes/addnotes";
+	}
+
+	
 	noterepository.save(note);
 	return "redirect:/ticket/detail/" + note.getTicketNota().getId();
 

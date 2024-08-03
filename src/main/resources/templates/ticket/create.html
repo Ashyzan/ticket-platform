@@ -52,7 +52,8 @@
 				
 				<h3 class="mb-4">Inserisci un nuovo ticket</h3>
 				
-				<form id="formticket"
+				<form id="formticket" 
+					class="row g-3 needs-validation" novalidate
 						th:action="@{/ticket/create}"
 						method="post"
 						th:object="${ticket}">
@@ -60,12 +61,17 @@
 						<div class="mb-3">
 						  <label for="input" class="form-group">Titolo Ticket</label>
 						  <input type="text" class="form-control" id="nome" placeholder="Titolo Ticket" 
-						  		 th:field="*{titoloTicket}">
+						  		 th:field="*{titoloTicket}" required>
+								 <div class="invalid-feedback">
+								        Digita un titolo
+								 </div>
 						</div>
 						<div class="mb-3">
 						<label for="input" class="form-group">Descrizione ticket</label>
-						    <textarea class="form-control" id="descrizione-textarea" rows="5" th:field="*{descrizioneTicket}"></textarea>
-						   
+						    <textarea class="form-control" id="descrizione-textarea" rows="5" th:field="*{descrizioneTicket}" required></textarea>
+							<div class="invalid-feedback">
+								Descrivi il ticket
+							</div>
 						</div>
 
 						<div class="mb-3">	
@@ -111,7 +117,29 @@
 		    </div>	    
 		  </div>
 
-		
+		  <!--	JAVASCRIPT-->
+		  <script>
+		  	// Example starter JavaScript for disabling form submissions if there are invalid fields
+		  	(function () {
+		  	  'use strict'
+		  	
+		  	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  	  var forms = document.querySelectorAll('.needs-validation')
+		  	
+		  	  // Loop over them and prevent submission
+		  	  Array.prototype.slice.call(forms)
+		  	    .forEach(function (form) {
+		  	      form.addEventListener('submit', function (event) {
+		  	        if (!form.checkValidity()) {
+		  	          event.preventDefault()
+		  	          event.stopPropagation()
+		  	        }
+		  	
+		  	        form.classList.add('was-validated')
+		  	      }, false)
+		  	    })
+		  	})()
+		  </script>		
 
 	<!-- Bootstrap Bundle with Popper -->
 	        <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>

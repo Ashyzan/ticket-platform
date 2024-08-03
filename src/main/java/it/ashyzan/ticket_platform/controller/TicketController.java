@@ -84,8 +84,26 @@ public class TicketController {
 	Ticket ticket, BindingResult bindingresult, Model model) {
 
 	if (bindingresult.hasErrors()) {
-		   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
-			return "/create";
+	    
+	    model.addAttribute("DB_categorie", categoriarepository.findAll());
+		model.addAttribute("DB_stato", statorepository.findAll());
+		
+		
+		// FILTRO OPERATORE NON DISPONIBILE
+		List<User> listaUserDB = userrepository.findAll();
+		List<User> listaUserDisponibili = new ArrayList<>();
+		
+		for (User item: listaUserDB) {
+	             
+		 	   if( item.getFlagDisponibile() == false) {
+		 	       
+		 	      listaUserDisponibili.add(item);
+		 	   }
+		 	  
+		         }
+		model.addAttribute("DB_operatore", listaUserDisponibili);
+	    
+			return "/ticket/create";
 		}
 	
 		ticketrepository.save(ticket);
@@ -117,8 +135,8 @@ public class TicketController {
 	    BindingResult bindingresult, Model model) {
 
 	if (bindingresult.hasErrors()) {
-	   bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
-	   return "redirect:/ticket/detail/" + note.getTicketNota().getId();
+	   //bindingresult.addError(new ObjectError("Errore di inserimento", "Il campo è obbligatorio"));
+	   return "/ticket/details";
 	}
 
 	noterepository.save(note);
