@@ -23,6 +23,7 @@ public interface TicketRepository extends JpaRepository <Ticket, Integer>{
     @Query(value = "SELECT * FROM tickets t WHERE t.titolo_ticket LIKE %:keyword%",
             nativeQuery = true)
     public List<Ticket> findByKeyword(@Param("keyword") String keyword);
+    
 
 //    SELECT *
 //    FROM tickets t 

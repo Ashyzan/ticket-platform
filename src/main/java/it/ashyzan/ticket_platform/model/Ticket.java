@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,17 +43,25 @@ public class Ticket {
 	private LocalDate dataTicket = LocalDate.now();
 	
 	@ManyToOne
+	@JsonManagedReference
+	@JsonIgnore
 	@JoinColumn(name = "categoria_id", nullable = false)
 	private Categoria categoria;
 	
 	@ManyToOne
+	@JsonManagedReference
+	@JsonIgnore
 	@JoinColumn(name = "stato_id", nullable = false)
 	private Stato stato;
 	
 	@OneToMany(mappedBy = "ticketNota")
+	@JsonManagedReference
+	@JsonIgnore
 	private List<Notes> note;
 	
 	@ManyToOne
+	@JsonManagedReference
+	@JsonIgnore
   	@JoinColumn(name = "user_id", nullable = false)
   	private User user;
 	
