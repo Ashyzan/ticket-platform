@@ -69,9 +69,17 @@ public class TicketController {
 		 	   if( item.getFlagDisponibile() == false) {
 		 	       
 		 	      listaUserDisponibili.add(item);
+		 	     
+		 	   }
+		 	   
+		 	  if( item.getRole().getId() == 1 ) {
+		 	       
+		 	      listaUserDisponibili.remove(item);
+		 	     
 		 	   }
 		 	  
 		         }
+		
 		model.addAttribute("DB_operatore", listaUserDisponibili);
 
 		 	
