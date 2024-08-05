@@ -38,6 +38,7 @@ public class DatabaseUserDetails implements UserDetails {
 		return this.authorities;
 	}
 
+	
 	@Override
 	public String getPassword() {
 
@@ -48,5 +49,10 @@ public class DatabaseUserDetails implements UserDetails {
 	public String getUsername() {
 		return this.username;
 	}
+	
+	public Integer getId() {
+	    return id;
+	}
+	
 
 }

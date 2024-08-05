@@ -62,6 +62,7 @@
 		<p>Logged user: <span sec:authentication="name"></span>		</p>
 		<p>Roles: <span sec:authentication="principal.authorities"></span></p>
 
+	
 					
 		<h3 class="mb-4">Elenco Tickets</h3>	  
 		<div  th:if="${ticket.size() <= 0}">

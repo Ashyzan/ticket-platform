@@ -44,7 +44,18 @@ public class Notes {
   	@JoinColumn(name = "user_id", nullable = true)
   	private User user;
 	
+	@Column(name = "autore", nullable = true)
+	private String autore;
+	
 	// GETTER SETTER
+
+	public String getAutore() {
+	    return autore;
+	}
+
+	public void setAutore(String autore) {
+	    this.autore = autore;
+	}
 
 	public Ticket getTicketNota() {
 	    return ticketNota;

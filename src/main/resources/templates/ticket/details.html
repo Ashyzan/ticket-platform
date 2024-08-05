@@ -78,8 +78,10 @@
 															th:object="${nuovaNota}">
 																
 														<input type="hidden" th:field="*{ticketNota}" id="ticket">
+														
 															<label for="input" class="form-group">Descrizione nota</label>
-														 <textarea class="form-control" th:field="*{descrizioneNota}" th:errorClass="is-invalid" required></textarea>
+														 <textarea class="form-control" th:field="*{descrizioneNota}" 
+														 th:errorClass="is-invalid" required></textarea>
 														 <div class="invalid-feedback">
 														 	Descrivi la nota
 														 </div>
@@ -87,6 +89,17 @@
 															<div class="mb-3">	
 														      <th:field="*{dataNota}">
 															</div>
+															
+<!--															<input value="${username}" type="hidden"-->
+<!--																	th:field="*{autore}" >-->
+																	
+																	<label for="input" class="form-group">Autore</label>
+																							<select class="form-select mb-3" th:field="*{autore}">
+																							<option  
+																							th:value="${username}" th:text="${username}">
+																							</option>
+																							</select>		
+<!--	<input type="hidden" th:field="*{user}">-->
 									
 															 <div class="col-auto">
 															   <button type="submit" class="btn btn-info mb-3">Salva</button>
@@ -124,7 +137,8 @@
 				<h3>Note</h3>				
 					  <div th:each="item: ${ticket.note}" class="card mt-2 mb-2" style="width: 100%; display:inline-block;">
 					    <div class="card-body">
-						  <p><b>Autore: </b><span th:text="${ticket.user.nome}"></span></p>
+						  <p><b>Autore: </b><span th:text="${item.autore}"></span></p>
+						  
 						  <p><b>Data: </b><span th:text="${#temporals.format(item.dataNota, 'dd/MM/yyyy')}"></span></p>
 					      <p class="card-text" th:text="${item.descrizioneNota}"></p>
 						 

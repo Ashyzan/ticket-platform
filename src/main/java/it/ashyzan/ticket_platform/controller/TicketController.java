@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -110,8 +111,9 @@ public class TicketController {
 	}
     
     // DETTAGLIO TICKET E NOTE 
+  
     @GetMapping("/detail/{id}")
-	public String dettaglioTicket(@PathVariable("id") Integer id, Model model ) {
+	public String dettaglioTicket(@PathVariable("id") Integer id, Model model, Authentication authentication, User user ) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
 		Notes nuovaNota = new Notes();
 
@@ -121,6 +123,7 @@ public class TicketController {
 		model.addAttribute("ticket", ticket);
 		model.addAttribute("note", noterepository.findAll());
 		
+		model.addAttribute("username", authentication.getName());
 		
 		model.addAttribute("nuovaNota", nuovaNota);
 		
@@ -131,8 +134,9 @@ public class TicketController {
    ///// AGGIUNGI NOTA
     @PostMapping("/detail/{id}")
     public String salvaNote(@PathVariable("id") Integer id, @Valid @ModelAttribute("nuovaNota") Notes note, 
-	    BindingResult bindingresult, Model model) {
+	    BindingResult bindingresult, Model model, User user, Authentication authentication) {
 
+	model.addAttribute("username", authentication.getName());
 	Ticket ticket = ticketrepository.getReferenceById(id);
 	model.addAttribute("ticket", ticket);
 	

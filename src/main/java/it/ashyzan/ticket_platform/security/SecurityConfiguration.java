@@ -34,6 +34,8 @@ public class SecurityConfiguration {
 	            
 
 	}
+    
+    
 	
 	@Bean
 	DatabaseUserDetailsService userDetailsService() {
