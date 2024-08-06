@@ -16,14 +16,14 @@ public class SecurityConfiguration {
     @Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
-	http.formLogin(login -> login.defaultSuccessUrl("/ticket/dashboard", true));
+	http.formLogin(login -> login.defaultSuccessUrl("/user/dashboard/userlogged/", true));
 	http.authorizeHttpRequests()
                 
 		// qui va messa l'url da tenere sotto controllo
 		// ... endpoints
 	          //  .formLogin(formLogin -> formLogin.loginPage("/login.html")
 	                
-		.requestMatchers("/ticket/create/**").hasAuthority("ADMIN")
+		.requestMatchers("/ticket/create/**","/ticket/dashboard") .hasAuthority("ADMIN")
 		.requestMatchers(HttpMethod.POST, "/ticket/create/**").hasAuthority("ADMIN")
 		.requestMatchers("/css/**", "/js/**", "/webjars/**", "/img/**").permitAll()
 //		.requestMatchers("/admin").hasAnyAuthority("ADMIN", "USER")

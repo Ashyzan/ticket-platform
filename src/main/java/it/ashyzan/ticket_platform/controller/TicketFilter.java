@@ -1,8 +1,11 @@
 package it.ashyzan.ticket_platform.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,71 +33,77 @@ public class TicketFilter {
       return ticketrepository.findByKeyword(keyword);
   }
   
-  
-  
-  public List<Ticket> findByUser(User user){
-      
-      return ticketrepository.findByUser(user);
-  }
 
-//  @GetMapping("/search")
-//  public String Search(Model model, String keyword, Authentication authentication) {
-////      if (keyword != null) {
-//          List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
-//          
-//          Optional<User> UserDB = userrepository.findByUsername(authentication.getName());
-//		
-//		User userloggato = UserDB.get();
-//	 
-//		// recupero i ticket associati all'utente in una variabile
-//	 	List<Ticket> ticketUser = userloggato.getListaTicket();
-//	 	// creo una lista ticket vuota
-//	 	List<Ticket> ticketUtenteLoggato = new ArrayList<>();
-//	 	// ciclo i ticket dell'utente, se lo stato è diverso da 3 (da fare) aggiungi alla lista vuota
-//	 	for (Ticket item: ticketFiltrati) {
-//	 	    
-//	             
-//	 	    // se l'utente che filtra è OPERATORE
-//	 	   if( userloggato.getRole().getId() == 2) {
-//	 	      
-//	 	      ticketUtenteLoggato.add(item);
-//	 	     model.addAttribute("ticketTrovati", ticketUtenteLoggato);
-//	 	      
-//	 	   }
-//	 	   // se l'utente che filtra è ADMIN:
-//	 	   else if(userloggato.getRole().getId() == 1) {
-//	 	      model.addAttribute("ticketTrovati", ticketFiltrati);
-//	 	   }
-//	 	   
-//	         }
-//         
-//		
-//	  
-//          return "/ticket/ticketfiltrati";
-////      }
-//          // se la search è null
-//      
-//      //return "/ticket/ticketfiltrati";
-//  } 
+  @GetMapping("/search")
+  public String Search(Model model, String keyword, Authentication authentication) {
+          List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
+          
+          List<Ticket> ticketNONFiltrati = ticketrepository.findAll();
+          
+          Optional<User> UserDB = userrepository.findByUsername(authentication.getName());
+		
+		User userloggato = UserDB.get();
+	 
+		// recupero i ticket associati all'utente in una variabile
+	 	List<Ticket> ticketUser = userloggato.getListaTicket();
+	 	// creo una lista ticket vuota
+	 	List<Ticket> ticketUtenteLoggato = new ArrayList<>();
+	 	
+	 	if (keyword != null) {
+	 	    
+	 	    if (ticketFiltrati.size() == 0) {
+	 		
+	 		model.addAttribute("ticketTrovati", ticketFiltrati);
+ 		    
+	 	          return "/ticket/ticketfiltrati";
+	 		
+	 	    }
+	          	
+	          // ciclo i ticket dell'utente
+	          for (Ticket item: ticketFiltrati) {
+	              
+	              
+	              // se l'utente che filtra è OPERATORE
+	              if( userloggato.getRole().getId() != 1) {
+	        	  
+	        	  // scegli i ticket in base all'id dell'operatore
+	        	  
+	        	  if(item.getUser().getId() == userloggato.getId()) {
+	        	      
+	        	      ticketUtenteLoggato.add(item);
+	        	      model.addAttribute("ticketTrovati", ticketUtenteLoggato);
+	        	  }
+	        	  
+	              }
+	              // se l'utente che filtra è ADMIN:
+	              else  {
+	        	  model.addAttribute("ticketTrovati", ticketFiltrati);
+	              }
+	              
+	          }
+	     
+	          return "/ticket/ticketfiltrati";
+	      } 
+      
+	 	model.addAttribute("ticketTrovati", ticketFiltrati);
+	return "/ticket/ticketfiltrati";
+
+  } 
   
   
   // FUNZIONANTE
-  @GetMapping("/search")
-  public String Search(Model model, String keyword) {
-      if (keyword != null) {
-          List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
-          
-          model.addAttribute("ticketTrovati", ticketFiltrati);
-         // model.addAttribute("username", authentication.getName());
-         
-          
-		
-     
-          return "/ticket/ticketfiltrati";
-      } 
-          
-    return "/ticket/ticketfiltrati";
-  }
+//  @GetMapping("/search")
+//  public String Search(Model model, String keyword) {
+//      if (keyword != null) {
+//          List<Ticket> ticketFiltrati = ticketrepository.findByKeyword(keyword);
+//          
+//          model.addAttribute("ticketTrovati", ticketFiltrati);
+//	    
+//          return "/ticket/ticketfiltrati";
+//      } 
+//          
+//    return "/ticket/ticketfiltrati";
+//  }
   
   // RICERCA TRAMITE TITOLO TICKET : by lezioni
   

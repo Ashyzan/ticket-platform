@@ -2,6 +2,7 @@ package it.ashyzan.ticket_platform.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -115,7 +116,7 @@ public class TicketController {
 		}
 	
 		ticketrepository.save(ticket);
-		return "redirect:/ticket/dashboard";
+		return "redirect:/user/dashboard/userlogged/";
 	}
     
     // DETTAGLIO TICKET E NOTE 
@@ -135,8 +136,15 @@ public class TicketController {
 		
 		model.addAttribute("nuovaNota", nuovaNota);
 		
+		Optional<User> UserDB = userrepository.findByUsername(authentication.getName());
+		User userloggato = UserDB.get();
+		
+		// condizione che impedisce agli utenti loggati di visualizzare ticket altrui
+		if(ticket.getUser() == userloggato || userloggato.getRole().getId() == 1) {
 		
 			return "/ticket/details";
+			}
+		return "/ticket/error";
 	}
     
    ///// AGGIUNGI NOTA
@@ -181,7 +189,7 @@ public class TicketController {
  		}
  		ticketrepository.save(ticket);
 
- 		return "redirect:/ticket/dashboard";
+ 		return "redirect:/user/dashboard/userlogged/";
  	}
  
  /////////////// CANCELLA TICKET
