@@ -40,9 +40,9 @@ public class Notes {
 	@JoinColumn(name = "ticketNota", nullable = false)
 	private Ticket ticketNota;
 	
-	@ManyToOne
-  	@JoinColumn(name = "user_id", nullable = true)
-  	private User user;
+//	@ManyToOne
+//  	@JoinColumn(name = "user_id", nullable = true)
+//  	private User user;
 	
 	@Column(name = "autore", nullable = true)
 	private String autore;
@@ -90,13 +90,13 @@ public class Notes {
 	    this.dataNota = dataNota;
 	}
 
-	public User getUser() {
-	    return user;
-	}
-
-	public void setUser(User user) {
-	    this.user = user;
-	}
+//	public User getUser() {
+//	    return user;
+//	}
+//
+//	public void setUser(User user) {
+//	    this.user = user;
+//	}
 
 
 }

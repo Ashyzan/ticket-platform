@@ -45,8 +45,8 @@ public class User {
   	@OneToMany(mappedBy = "user")
 	private List<Ticket> listaTicket;
   	
-  	@OneToMany(mappedBy = "user")
-	private List<Notes> listaNote;
+//  	@OneToMany(mappedBy = "user")
+//	private List<Notes> listaNote;
   	
   	// GETTER SETTER
   	
@@ -114,13 +114,13 @@ public class User {
 	    this.listaTicket = listaTicket;
 	}
 
-	public List<Notes> getListaNote() {
-	    return listaNote;
-	}
-
-	public void setListaNote(List<Notes> listaNote) {
-	    this.listaNote = listaNote;
-	}
+//	public List<Notes> getListaNote() {
+//	    return listaNote;
+//	}
+//
+//	public void setListaNote(List<Notes> listaNote) {
+//	    this.listaNote = listaNote;
+//	}
 
 	
 

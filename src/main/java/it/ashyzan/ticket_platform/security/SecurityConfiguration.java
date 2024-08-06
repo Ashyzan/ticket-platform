@@ -2,6 +2,7 @@ package it.ashyzan.ticket_platform.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,14 +15,16 @@ public class SecurityConfiguration {
     
     @Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests()
+		
+	http.formLogin(login -> login.defaultSuccessUrl("/ticket/dashboard", true));
+	http.authorizeHttpRequests()
                 
 		// qui va messa l'url da tenere sotto controllo
 		// ... endpoints
 	          //  .formLogin(formLogin -> formLogin.loginPage("/login.html")
 	                
-		.requestMatchers("/ticket/create/").hasAuthority("ADMIN")
-		//.requestMatchers(HttpMethod.POST, "/pizzeria/**").hasAuthority("ADMIN")
+		.requestMatchers("/ticket/create/**").hasAuthority("ADMIN")
+		.requestMatchers(HttpMethod.POST, "/ticket/create/**").hasAuthority("ADMIN")
 		.requestMatchers("/css/**", "/js/**", "/webjars/**", "/img/**").permitAll()
 //		.requestMatchers("/admin").hasAnyAuthority("ADMIN", "USER")
 		.requestMatchers("/**").permitAll().and().formLogin().and().logout()
@@ -31,7 +34,6 @@ public class SecurityConfiguration {
 //csrf cross site request forgery in questo caso è disabilitato epr permettere la post
 		return http.build();
 
-	            
 
 	}
     

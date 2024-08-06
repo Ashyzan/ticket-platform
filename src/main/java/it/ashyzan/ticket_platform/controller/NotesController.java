@@ -1,6 +1,7 @@
 package it.ashyzan.ticket_platform.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,17 +31,17 @@ public class NotesController {
 
     // DETTAGLIO TICKET E NOTE AGGIUNGI NOTA
     @GetMapping("/add/{id}")
-	public String aggiungiNota(@PathVariable("id") Integer id, Model model) {
+	public String aggiungiNota(@PathVariable("id") Integer id, Model model, Authentication authentication) {
 		Ticket ticket = ticketrepository.getReferenceById(id);
 		Notes nuovaNota = new Notes();
 
 		// associo il ticket alla/e nuova nota
 		nuovaNota.setTicketNota(ticket);
-		nuovaNota.setUser(ticket.getUser());
+		//nuovaNota.setUser(ticket.getUser());
 
 		model.addAttribute("ticket", ticket);
 		model.addAttribute("note", noterepository.findAll());
-		
+		model.addAttribute("username", authentication.getName());
 		
 		model.addAttribute("nuovaNota", nuovaNota);
 		
@@ -56,7 +57,7 @@ public class NotesController {
 
 	// associo il ticket alla/e nuova nota
 	nuovaNota.setTicketNota(ticket);
-	nuovaNota.setUser(ticket.getUser());
+	//nuovaNota.setUser(ticket.getUser());
 
 	model.addAttribute("ticket", ticket);
 

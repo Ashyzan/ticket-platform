@@ -53,7 +53,8 @@
 		<div style="max-width: 50%; margin:0 auto;">
 			<h3 class="mb-4">Modifica dati user</h3>
 						<form id="formuser" class="needs-validation" novalidate
-							th:action="@{|/user/edit/${id}|}" 
+							th:action="@{/user/edit/userlogged/{id} (id=${userutente.id})}"
+							 
 							method="post"
 							th:object="${userutente}">
 							
@@ -95,7 +96,12 @@
 										  <option value="0">Disponibile</option>
 										  <option value="1">Non disponibile</option>
 										</select>
-									</div>	
+									</div>
+									
+									<div th:if="${#bools.isFalse(flag)}" >
+										<input type="hidden" th:field="*{flagDisponibile}">
+										
+										</div>	
 							
 
 		 
